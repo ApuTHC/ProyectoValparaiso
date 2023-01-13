@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+    <meta name="revisit-after" content="1 hour">
+    <meta name="distribution" content="all">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.5, user-scalable=yes">
+    <meta name="expires" content="1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="all">
+    <meta name="description"
+        content="Este es el Geovisor desarrollado para el Proyecto con el Municipio de Valparaiso por el grupo de investigación GeoHazards de la Universidad Nacional de Colombia Sede Medellín." />
+    <meta name="keywords"
+        content="sensores, remotos, geohazards, universidad nacional, geología, cartografia, geovisor, valparaiso" />
+    <meta name="author" content="Daniel Felipe Correa Zapata" />
+
+
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/frontend.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/unal.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/leaflet.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-colorpicker.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/geomap.css" media="all">
+
+    <link type="text/css" rel="stylesheet" href="css/firebase-ui-auth.css" />
+    <link type="text/css" rel="stylesheet" href="css/Leaflet.StyleEditor.css"/>
+    <link type="text/css" rel="stylesheet" href="css/leaflet-geoman.css" />
+    <link type="text/css" rel="stylesheet" href="css/MarkerCluster.Default.css" />
+    <link type="text/css" rel="stylesheet" href="css/MarkerCluster.css" />
+    <link type="text/css" rel="stylesheet" href="css/leaflet-ruler.css" />
+    <link type="text/css" rel="stylesheet" href="css/leaflet.fusesearch.css" />
+    <link type="text/css" rel="stylesheet" href="css/L.Control.Locate.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/leaflet.awesome-markers.css" />
+
+
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/unal.js" type="text/javascript"></script>
+    <script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9]><script src="js/html5shiv.js"
+  type="text/javascript"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"
+  type="text/javascript"></script><![endif]-->
+
+    <title>Geovisor</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="unalTop">
+        <!-- Logo UNAL -->
+        <div class="logo">
+            <a href="https://unal.edu.co">
+                <!--[if (gte IE 9)|!(IE)]><!-->
+                <svg width="93%" height="93%">
+                    <image xlink:href="images/escudoUnal.svg" width="100%" height="100%" class="hidden-print"
+                        alt="Escudo de la Universidad Nacional de Colombia" />
+                </svg>
+
+                <!--<![endif]-->
+                <!--[if lt IE 9]> <img src="images/escudoUnal.png" width="93%" height="auto"
+        class="hidden-print"/> <![endif]-->
+                <img src="images/escudoUnal_black.png" class="d-none d-print-block"
+                    alt="Escudo de la Universidad Nacional de Colombia" />
+            </a>
+        </div>
+        <!-- Logo SGC -->
+        <!-- <div class="logo logo-header-sgc">
+            <a href="https://www.sgc.gov.co/">
+                
+                <img src="images/logo_SGC_blanco.png" width="90%" height="auto" class="hidden-print " alt="Logo del Servicio Geológico Colombiano" style="transform: scaleX(-1);">
+            </a>
+        </div> -->
+        
+        <!-- Menú superior -->
+        <div class="firstMenu d-none d-md-block">
+
+        </div>
+
+        <!-- Menú inferior -->
+        <div id="bs-navbar" class="navigation d-none d-md-block">
+            <!-- Título del sitio -->
+            <div class="site-url" id="subdominio">
+                <a href="#">ESTUDIOS DE AMENAZA A NIVEL DE DETALLE EN EL SECTOR SABALETAS DEL MUNICIPIO DE VALPARAÍSO</a>
+            </div>
+
+            <!-- Main menu -->
+            <div class="navbar-dark mainMenu" id="main_menu_container">
+                <!-- Items menú principal -->
+                <div class="btn-group">
+                    <a href="#" id="btn_geovisor" class="btn btn-default hovered">Geovisor</a>
+                    <a href="./informacion-recolectada.html" id="btn_catvir" class="btn btn-default">Información Recolectada</a>
+                    <a href="./acercade.html" id="btn_addmark" class="btn btn-default">Acerca de</a>
+                </div>
+                <div class="btn-group menu_tools">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Navbar-->
+        <nav class="navbar navbar-light light-blue lighten-4 main_menu">
+            <!-- Navbar brand -->
+            <a class="navbar-brand d-block d-md-none" href="#"></a>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler d-block d-md-none collapsed" type="button" data-toggle="collapse"
+                data-target="#navbar_content" aria-controls="navbar_content" aria-expanded="false"
+                aria-label="Toggle navigation" id="btn_hamburguer">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="navbar_content">
+                <!-- main -->
+                <div id="container_mainmenu_mobil"></div>
+                <!-- Herramientas -->
+                <div class="btn-group d-block d-md-none hidden-print">
+                    <ul data-target="#container_tools_mobil" class="p-0 m-0">
+                        <li class="w-100 mt-3"><a href="#" class="d-block text-decoration-none w-100 text-center text-light hovered">Geovisor</a></li>
+                        <li class="w-100"> <a href="./informacion-recolectada.html" class=" d-block text-decoration-none w-100 text-center text-light">Información recolectada</a></li>
+                        <li class="w-100 mb-2"> <a href="./acercade.html" class=" d-block text-decoration-none w-100 text-center text-light">Acerca de</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="container_tools_mobil"></div>
+            </div>
+            <!-- Collapsible content -->
+
+        </nav>
+
+    </header>
+
+    <!-- defaultpanel -->
+
+    <!-- /content wrapper for padding -->
+
+    <!-- Contenido -->
+    <main class="detalle">
+        <div class="contenido-pagina">
+            <!-- Main -->
+            <section class="main">
+
+                <!-- User -->
+                <div class="seal" data-toggle="modal" data-target="#loginModal">
+                    <img id="user-photo" class="hidden-print" alt="Usuario" src="images/user.png"/>
+                </div>
+                <!-- Elementos -->
+                <section class="elements">
+
+                    <!-- Mapa -->
+                    <div class="map out" id="map"></div>
+
+                    <!-- Mapa-Menú -->
+                    <div id="basemaps-wrapper" class="leaflet-bar">
+                        <select name="basemaps" id="basemaps" onChange="setBasemap(basemaps)" class="lista">
+                            <option value="Google">Google Maps</option>
+                            <option value="Hillshade">Hillshade World</option>
+                            <option value="Imagery">Imagery</option>
+                            <option value="Street">OpenStreet</option>
+                            <option value="Gray">Gray</option>
+                            <option value="DarkGray">Dark Gray</option>
+                            <option value="Topographic">Topographic</option>
+                            <option value="ShadedRelief">Shaded Relief</option>
+                        </select>
+                    </div>
+
+                    <!-- Sidebar Izquierda -->
+                    <aside class="out" id="sidebar-left-forms">
+                        <div class="btn-mapa btn-afloramiento">
+                            <div class="btn-text">Formulario</div>
+                        </div>
+                        <div class="sidebar sidebar-left">
+                            <div id="features" class="features">
+                                <div class=sb-close-l>
+                                    <span>&times;</span>
+                                </div>
+                                <ul class="list-unstyled">
+                                    <li class="title">Añadir Estación</li>
+             
+                                    <li>
+                                        <br>
+                                        <button type="button" class="btn btn-primary" id="deleteFeat">Borrar Estación</button>
+                                    </li>    
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Sidebar Derecha -->
+                    <aside class="out" id="sidebar-left-layers">
+                        <div class="btn-mapa btn-capas">
+                            <div class="btn-text">Añadir&nbsp;Capa</div>
+                        </div>
+                        <div class="sidebar sidebar-right">
+                            <div class=sb-close-r>
+                                <span>&times;</span>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="title">Capas Disponibles</li>
+                                <li>
+                                    <button type="button" class="collapsible">Datos</button>
+                                    <div class="content">
+                                        <ul id="list_aflora">
+            
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- <li>
+                                    <button type="button" class="collapsible">Municipios</button>
+                                     <div class="content cont_muni" id="cont_muni">
+                                        <ul id="lista_muni">
+                                            
+                                        </ul>
+                                    </div> 
+                                </li> -->
+                                <!-- <li>
+                                    <button type="button" class="collapsible">Insumos</button>
+                                     <div class="content cont_ins" id="cont_ins">
+                                        <ul>
+                                            <li>
+                                                <button type="button" class="collapsible coll_ins">Generales</button>
+                                                 <div class="content cont_ins">
+                                                    <ul id="lista_generales">
+                                                        
+                                                    </ul>
+                                                </div> 
+                                            </li>
+                                            <li>
+                                                <button type="button" class="collapsible coll_ins">Morfométricos</button>
+                                                 <div class="content cont_ins">
+                                                    <ul id="lista_morfos">
+                                                        
+                                                    </ul>
+                                                </div> 
+                                            </li>
+                                            <li>
+                                                <button type="button" class="collapsible coll_ins">Imágenes</button>
+                                                 <div class="content cont_ins">
+                                                    <ul id="lista_imagenes">
+                                                        
+                                                    </ul>
+                                                </div> 
+                                            </li>
+                                            <li>
+                                                <button type="button" class="collapsible coll_ins">Planchas</button>
+                                                 <div class="content cont_plancha" id="cont_plancha">
+                                                    <ul id="lista_insumos">
+                                                        
+                                                    </ul>
+                                                </div> 
+                                            </li>                                            
+                                        </ul>
+                                    </div> 
+                                </li> -->
+                                <li>
+                                    <button type="button" class="collapsible">Mapas</button>
+                                    <div class="content"">
+                                        <ul id="ul_mapas">
+
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <button type="button" class="collapsible">Cargar Capas Adicionales </button>
+                                    <div class="content" id="archi">
+                                        <ul>
+                                            <li class="content-list first">
+                                                <form id="form" enctype=" multipart/form-data">
+                                                    <h5>Formatos que puede cargar: KML (.kml), SHP (.zip), GeoJSON (.json), Raster (.tif).</h5>
+                                                    <h5>Puede cargar varios archivos a la vez, incluso de tipos diferentes.</h5>
+                                                    <input class="custom-file-input" type="file" id="files" name="files[]" multiple />
+                                                    <label class="custom-file-label" for="files">Choose file</label>
+                                                    <output>
+                                                        <ul id="list">
+
+                                                        </ul>
+                                                    </output>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <button type="button" class="collapsible coll_descargas_padre">Descargar Datos</button>
+                                    <div class="content cont_descargas" id="lista_capas_descargar">
+                                        
+                                    </div>
+                                </li>
+                                <li>
+                                    <button type="button" id="datosEstaciones" class="collapsible coll_descargas_padre">Descargar Datos Estaciones</button>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </aside>
+
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal Login-->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="firebaseui-auth-container"></div>
+                    <div class="d-none" id="modal-perfil-container">
+                        <img src="#" alt="Foto Perfil" id="foto-perfil">
+                        <h3 id="nombre-perfil">Nombre</h3>
+                        <h4 id="correo-perfil">Correo</h4>
+                        <h4 id="semestre-perfil">Proyecto</h4>
+                        <h4 id="nivel-perfil">Nivel</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="logout" data-dismiss="modal">Cerrar Sesión</button>
+                    <button type="button" class="btn btn-secondary" id="cancel" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estaciones -->
+    <div class="modal fade" id="modal-estaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edición Estaciones</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <h5 class="w-100 font-weight-bold mx-auto text-center" id="id-edit-estaciones"></h5>
+                        <input id="estaciones-id" type="hidden">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-fecha-1" class="bold">Fecha</label>
+                                    <input type="date" class="form-control" id="est-fecha-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-estacion-1" class="bold">Estación</label>
+                                    <input type="text" class="form-control" id="est-estacion-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-tipoEstacion-1" class="bold">Tipo de Estación</label>
+                                    <input type="text" class="form-control" id="est-tipoEstacion-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-propietario-3" class="bold">Propietario</label>
+                                    <input type="text" class="form-control" id="est-propietario-3">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-formatos-1" class="bold">Formatos</label>
+                                    <input type="text" class="form-control" id="est-formatos-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-norte-1" class="bold">Norte</label>
+                                    <input type="number" step=0.000000000000001 class="form-control" id="est-norte-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-este-1" class="bold">Este</label>
+                                    <input type="number" step=0.000000000000001 class="form-control" id="est-este-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="est-altura-1" class="bold">Altura</label>
+                                    <input type="number" step=0.000000000000001 class="form-control" id="est-altura-1">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="est-fotos-1" class="bold">Fotografías Estación</label>
+                                    <textarea class="form-control" rows="2" id="est-fotos-1"></textarea/>
+                                </div>
+                                <div class="form-group col-12 row" id="contenedorFotos"></div>
+                                <div class="form-group col-sm-4">
+                                    <input type="file" class="form-control inputsFotos" multiple id="foto_Generales_0_0" onchange="handleFilesAflor(this.files, id)">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="est-fotosLib-1" class="bold">Fotografías Libreta</label>
+                                    <textarea class="form-control" rows="2" id="est-fotosLib-1"></textarea/>
+                                </div>
+                                <div class="form-group col-12 row" id="contenedorFotosLib"></div>
+                                <div class="form-group col-sm-4">
+                                    <input type="file" class="form-control inputsFotos" multiple id="foto_Libreta_0_0" onchange="handleFilesAflor(this.files, id)">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="est-observaciones-1" class="bold">Observaciones</label>
+                                    <textarea class="form-control" rows="2" id="est-observaciones-1"></textarea/>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <label for="est-observaciones-1" class="bold">Texto para la Libreta</label>
+                                            <textarea class="form-control" rows="6" id="est-textollib-1"></textarea/>
+                                        </div>
+                                        <div class="col-2">
+                                            <button id="generarTextoLibreta" class="btn estilo-modales bold">Generar Texto</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="add-est-formatos-select" class="bold">Escoja el formato a añadir:</label>
+                                            <select class="form-control" id="add-est-formatos-select-edit" maxlength="10">
+                                                <option value="Ninguno">Ninguno</option>
+                                                <option value="VIVIENDA">Caracterización de Vivienda</option>
+                                                <option value="UGSR">UGS Rocas</option>
+                                                <option value="UGSS">UGS Suelos</option>
+                                                <option value="SGMF">SGMF</option>
+                                                <option value="CATALOGO">Catalogo MM</option>
+                                                <option value="INVENTARIO">Inventario MM</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6 pt-4">
+                                            <label for="add-est-btn-edit" class="mt-4"></label>
+                                            <button id="add-est-btn-edit" class="btn estilo-modales bold">Agregar Formato</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <h3 class="w-100 font-weight-bold mx-auto text-center bold titulo-formatos">Formatos</h3>
+                                    <div class="row">
+                                        <div class=" col-12">
+                                            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                                            
+                                            </ul>
+                                            <div class="tab-content" id="myTabsContent">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="2">Cancelar</button>
+                            <button type="button" id="btnModalEditar" value="btnGuardar" class="btn estilo-modales" translate="1">Guardar</button>
+                        </div>
+                    </div>
+                    
+                   
+                </form>
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal Query -->
+    <div class="modal fade" id="id-Query-Estaciones" tabindex="-1" role="dialog" aria-labelledby="id-repetidos-procesos" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header estilo-modales">
+                <h4 class="modal-title font-weight-bold" id="id-repetidos-estaciones-titulo">Petición Query</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row text-center">
+                        <div class="col-12 col-md-2 border-right border-left" id="tipo-form-query">
+                            <h4 class="font-weight-bold">Tipo Formulario</h4>
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="ugsr" onclick="QueryTipoForm(id)">UGSR</button>
+                            <!-- <button class="btn btn-propia2 d-block mb-1 mx-auto" id="ugsrdisc" onclick="QueryTipoForm(id)">(UGSR) Discontinuidades</button> -->
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="ugss" onclick="QueryTipoForm(id)">UGSS</button>
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="sgmf" onclick="QueryTipoForm(id)">SGMF</button>
+                            <!-- <button class="btn btn-propia2 d-block mb-1 mx-auto" id="sgmfnew" onclick="QueryTipoForm(id)">(SGMF) Nueva SGMF</button> -->
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="cat" onclick="QueryTipoForm(id)">CATALOGO</button>
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="inv" onclick="QueryTipoForm(id)">INVENTARIO</button>
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="inv" onclick="QueryTipoForm(id)">VIVIENDA</button>
+                        </div>
+                        <div class="col-12 col-md-5 border-right border-left">
+                            <h4 class="font-weight-bold">Campos del Formulario</h4>
+                            <div class="campos" id="campos-form-query">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-2 border-right border-left" id="operador-form-query">
+                            <h4 class="font-weight-bold">Operadores</h4>
+                            <button disabled class="btn btn-propia2 m-1" id="(" onclick="QueryOperadores(id)">(</button>
+                            <button disabled class="btn btn-propia2 m-1" id=")" onclick="QueryOperadores(id)">)</button>
+                            <button disabled class="btn btn-propia2 m-1" id="&&" onclick="QueryOperadores(id)">AND</button>
+                            <button disabled class="btn btn-propia2 m-1" id="||" onclick="QueryOperadores(id)">OR</button>
+                            <button disabled class="btn btn-propia2 m-1" id="==" onclick="QueryOperadores(id)">IQUAL</button>
+                            <button disabled class="btn btn-propia2 m-1" id="!=" onclick="QueryOperadores(id)">NOT IQUAL</button>
+                            <!-- <button disabled class="btn btn-propia2 m-1" id=">" onclick="QueryOperadores(id)">></button>
+                            <button disabled class="btn btn-propia2 m-1" id="<" onclick="QueryOperadores(id)"><</button>
+                            <button disabled class="btn btn-propia2 m-1" id=">=" onclick="QueryOperadores(id)">>=</button>
+                            <button disabled class="btn btn-propia2 m-1" id="<=" onclick="QueryOperadores(id)"><=</button> -->
+                            <button disabled class="btn btn-propia2 m-1" id="includes" onclick="QueryOperadores(id)">Contiene el Texto:</button>
+                        </div>
+                        <div class="col-12 col-md-3 border-right border-left">
+                            <h4 class="font-weight-bold">Valores del Campo</h4>
+                            <div class="campos" id="valores-form-query">
+                            </div>
+                        </div>
+                        <div class="col-12 text-center mt-2">
+                            <h4 class="font-weight-bold">Query</h4>
+                            <div class="formula" id="formula-form-query">
+                                <p>Elija el tipo de formulario</p>
+                            </div>
+                            <button class="btn btn-propia m-1" id="ejecutar-query">Aceptar</button>
+                            <button class="btn btn-propia m-1" id="borrar-query" onclick="QueryBorrar()">Reiniciar</button>
+                            <p><b>Recuerde:</b> Si su intención es filtrar entre campos del formato y de sus anexos (Discontinuidades o SGMF) mediante un operador 'OR' se recomienda que filtre estos campos por separado. esto no es necesario para el operador 'AND' ni para campos unicamente del formato o unicamente de sus anexos (Discontinuidades o SGMF).</p>
+                            <p class="text-danger"><b>Importante:</b> Esta herramienta se encuentra en desarrollo y por el momento no está implementada para algunos campos de los formularios ni para algunos operadores, gracias por la comprensión. Por favor reportar errores.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Modal de generación de texto libreta-->
+    <div class="modal fade" id="modal-generarTextoLib" tabindex="-1" role="dialog" aria-labelledby="tituloModalConfirmacion" aria-hidden="true" style="background: #000000aa;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header estilo-modales">
+              <h5 class="modal-title font-weight-bold" id="tituloModalConfirmacion">Texto Libreta</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row" id="generarTextoLib-content">
+
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn font-weight-bold estilo-modales" id="btnModalGenerarTextoLib">Generar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+
+    <!-- GeoJSON's de los insumos -->
+    <div id="planchas">
+        <script src="data/users.js"></script>
+        <script src="data/base_clase1.js"></script>
+        <script src="data/base_2.js"></script>
+        <script src="data/base_3.js"></script>
+        <script src="data/Grilla.js"></script>
+        <script src="data/municipio.js"></script>
+    </div>
+
+    <!-- Leaflet -->
+    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet.wms.js"></script>
+    <script src="js/esri-leaflet.js"></script>
+    <script src="js/leaflet.label.js"></script>
+    <script src="js/leaflet-heat.js"></script>
+    <script src="js/esri-leaflet-heatmap-feature-layer.js"></script>
+    <script src="js/L.VectorIcon.js"></script>
+    <script src="js/leaflet-omnivore.min.js"></script>
+    <script src="js/esri-leaflet-webmap.js"></script>
+    <script src="js/L.KML.js"></script>
+    <script src="js/leaflet.markercluster.js"></script>
+    <script src="js/esri-leaflet-cluster.js"></script>
+    <script src="js/esri-leaflet-vector.js"></script>
+    <script src="js/esri-leaflet-renderers.js"></script>
+    
+    <!-- Date Format -->
+    <script src="js/dateFormat.min.js"></script>
+
+    <!-- ColorPicker -->
+    <script src="js/bootstrap-colorpicker.js"></script>
+
+    <!-- Leaflet Style Editor -->
+    <script src="js/Leaflet.StyleEditor.js"></script>
+
+    <!-- Leaflet Draw GeoMan -->
+    <script src="js/leaflet-geoman.min.js"></script>
+
+    <!-- Leaflet Raster -->
+    <script src="js/georaster.js"></script>
+    <script src="js/proj4-src.js"></script>
+    <script src="js/georaster-layer-for-leaflet.js"></script>
+    
+    <!-- Leaflet SHP -->
+    <script src="js/shp.js"></script>
+    <script src="js/leaflet.shpfile.js"></script>
+
+    <!-- FileSaver -->
+    <script src="js/circuler.js"></script>
+    <script src="js/FileSaver.min.js"></script>
+    <script src="js/jszip.js"></script>
+
+    <!-- Ruler -->
+    <script src="js/leaflet-ruler.js"></script>
+
+    <!-- Search -->
+    <script src="js/fuse.js"></script>
+    <script src="js/leaflet.fusesearch.js"></script>
+
+    <!-- Split Btn -->
+    <script src="js/turf.min.js"></script>
+    
+    <!-- Download Shapefile from GeoJSON -->
+    <script src="js/shpwrite.js"></script>
+
+    <!-- Spin de Carga -->
+    <script src="js/spin.min.js"></script>
+    <script src="js/leaflet.spin.min.js"></script>
+
+    <!-- Location -->
+    <script src="js/L.Control.Locate.min.js"></script>
+
+    <!-- Awasome Markers -->
+    <script src="js/leaflet.awesome-markers.js"></script>
+
+    <!-- Excel -->
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <!-- Alertas para edicion de estaciones -->
+    <script src="js/anim-edicion-tablas.js"></script>
+
+    <!-- Scripts Firebase -->
+    <script src="js/firebase-app-compat.js"></script>
+    <script src="js/firebase-database-compat.js"></script>
+    <script src="js/firebase-storage-compat.js"></script>
+    <script src="js/firebase-auth-compat.js"></script>
+    <script src="js/firebase-ui-auth.js"></script>
+    
+    <script src="js/server.js"></script>
+    <script src="js/gestion-estaciones.js"></script>
+    <script src="js/geomap.js"></script>
+
+</body>
+
+</html>
