@@ -21,7 +21,7 @@ var ElementoSueloResidualUGSS = new ElementoFormato( "Horizonte",  "secuenciaest
 
 var listaElementosUGSR = [
   new ElementoFormato( "Número Formato",  "edittext",  "noformato", 0),
-  new ElementoFormato( "Municipio",  "spinner",  "municipios", ['AGUADAS','ARANZAZU','FILADELFIA','MARQUETALIA','RIOSUCIO','SUPIA']),
+  new ElementoFormato( "Municipio",  "spinner",  "municipios", ['VALPARAISO']),
   new ElementoFormato( "Vereda",  "edittext",  "vereda", 0),
   new ElementoFormato( "Número de la Estación",  "edittext",  "noestacion", 0),
   new ElementoFormato( "Clase Afloramiento",  "spinner",  "claseaflor", ['Natural','Corte superficial','Excavación subterránea','Trinchera, Apique']),
@@ -71,7 +71,7 @@ var listaElementosUGSFotosAnexas = [
 
 var listaElementosUGSS = [
   new ElementoFormato( "Número Formato",  "edittext",  "noformato", 0),
-  new ElementoFormato( "Municipio",  "spinner",  "municipios", ['AGUADAS','ARANZAZU','FILADELFIA','MARQUETALIA','RIOSUCIO','SUPIA']),
+  new ElementoFormato( "Municipio",  "spinner",  "municipios", ['VALPARAISO']),
   new ElementoFormato( "Vereda",  "edittext",  "vereda", 0),
   new ElementoFormato( "Número de la Estación",  "edittext",  "noestacion", 0),
   new ElementoFormato( "Clase Afloramiento",  "spinner",  "claseaflor", ['Natural','Corte superficial','Excavación subterránea','Trinchera, Apique']),
@@ -117,7 +117,7 @@ var listaElementosUGSS = [
 
 var listaElementosSGMF =[
   new ElementoFormato( "Número Formato",  "edittext",  "noformato", 0),
-  new ElementoFormato( "Municipio",  "spinner",  "municipios", ['AGUADAS','ARANZAZU','FILADELFIA','MARQUETALIA','RIOSUCIO','SUPIA']),
+  new ElementoFormato( "Municipio",  "spinner",  "municipios", ['VALPARAISO']),
   new ElementoFormato( "Vereda",  "edittext",  "vereda", 0),
   new ElementoFormato( "Número de la Estación",  "edittext",  "noestacion", 0),
   new ElementoFormato( "Tipo de Ambiente (Marque varios si es necesario)","radiocheck","ambiente",["Morfoestructural","Volcánico","Denudacional","Fluvial-Lagunar","Marino-Costero","Glacial-Periglacial","Eólico","Kárstico","Antropogénico"]),
@@ -172,7 +172,7 @@ var listaElementosCAT = [
   new ElementoFormato("CONFIABILIDAD FECHA EVENTO","spinnerMM","ConfiFechaMM",["Exacta","Certeza mes y año","Certeza Año","Confiabilidad baja","Incierta"]),
   new ElementoFormato("FECHA REPORTE","edittextMM","FECHA_REP",0),
   new ElementoFormato("SIMMA","edittextMM","COD_SIMMA",0),
-  new ElementoFormato("Municipio",  "spinnerMM",  "NOM_MUN", ['AGUADAS','ARANZAZU','FILADELFIA','MARQUETALIA','RIOSUCIO','SUPIA']),
+  new ElementoFormato("Municipio",  "spinnerMM",  "NOM_MUN", ['VALPARAISO']),
   new ElementoFormato("Vereda",  "edittextMM",  "VEREDA", 0),
   new ElementoFormato("SITIO","edittext","SITIO",0),
   new ElementoFormato("Latitud","edittext","latitudMM",0),
@@ -216,7 +216,7 @@ var listaElementosINV = [
   new ElementoFormato("CONFIABILIDAD FECHA EVENTO","spinnerMM","ConfiFechaMM",["Exacta","Certeza mes y año","Certeza Año","Confiabilidad baja","Incierta"]),
   new ElementoFormato("FECHA REPORTE","edittextMM","FECHA_REP",0),
   new ElementoFormato("SIMMA","edittextMM","COD_SIMMA",0),
-  new ElementoFormato("Municipio",  "spinnerMM",  "NOM_MUN", ['AGUADAS','ARANZAZU','FILADELFIA','MARQUETALIA','RIOSUCIO','SUPIA']),
+  new ElementoFormato("Municipio",  "spinnerMM",  "NOM_MUN", ['VALPARAISO']),
   new ElementoFormato("Vereda",  "edittextMM",  "VEREDA", 0),
   new ElementoFormato("Sitio","edittext","SITIO",0),
   new ElementoFormato("REFERENCIA GEOGRÁFICA","edittextMM","REF_GEOGRF",0),

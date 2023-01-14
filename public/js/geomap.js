@@ -1799,15 +1799,12 @@ var infoSec = [
 ];
 // Array com las grillas de las planchas 25k
 var insumosGenerales = [
-  new Mapa(null,'lineamientos','Lineamientos 25K',3,0,0.5,'https://services7.arcgis.com/gTVMpnerZFjZtXQb/arcgis/rest/services/Lineamientos_25K/FeatureServer/0'),
-  new Mapa(null,'pliegues','Pliegues',3,0,0.5,'https://services7.arcgis.com/gTVMpnerZFjZtXQb/arcgis/rest/services/Pliegues/FeatureServer/0'),
-  new Mapa(null,'grilla','Grilla Planchas 25K',1,0,0.5, grilla),
-  new Mapa(null,'municipios','Municipios Zona de Estudio',1,0,0.5, municipio),
-  new Mapa(null,'curvas','Curvas de Nivel Unificadas',2,0,0.5, 'https://tiles.arcgis.com/tiles/gTVMpnerZFjZtXQb/arcgis/rest/services/Curvas_B5_maps/MapServer'),
-  new Mapa(null,'drenajesSencillos','Drenajes Sencillos Unificados',2,0,0.5, 'https://services3.arcgis.com/wdDpgpE04Gj1AYXe/arcgis/rest/services/Drenaje_Senc_B5/MapServer'),
-  new Mapa(null,'drenajesDobles','Drenajes Dobles Unificados',2,0,0.5, 'https://services3.arcgis.com/wdDpgpE04Gj1AYXe/arcgis/rest/services/Drenaje_Doble_B5/MapServer'),
-  new Mapa(null,'vias','Vías en la Zona de Estudio',2,0,0.5, 'https://services3.arcgis.com/wdDpgpE04Gj1AYXe/arcgis/rest/services/Vias/MapServer'),
-  new Mapa(null,'labels','Etiquetas y Límites Políticos',4,0,0.5, null),
+  // new Mapa(null,'municipios','Municipios Zona de Estudio',1,0,0.5, municipio),
+  new Mapa(null,'umi','Unidad Morfodinámica Independiente',1,0,0.5, umi),
+  new Mapa(null,'dagran','Área de Influencia DAGRAN',1,0,0.5, cuencaDAGRAN),
+  new Mapa(null,'cuerposAgua','Cuerpos de Agua',1,0,0.5, cuerposAgua),
+  new Mapa(null,'casas','Casas',1,0,0.5, casas),
+
 ];
 var insumosImagenes = [
   new Mapa(null,'planetscope','Planet_201512_201605',2,0,0.5, 'https://tiles.arcgis.com/tiles/gTVMpnerZFjZtXQb/arcgis/rest/services/Planet_201512_201605_mosaico_tif/MapServer'),
@@ -1823,80 +1820,80 @@ var morfometrias = [
 function CargarInsumos() {
 
   // Cargando las Curvas de nivel y Drenajes dobles y sencillos de las planchas 25K de la Zona de Estudio
-  for (let i = 0; i < namePlanchas.length; i++) {
+  // for (let i = 0; i < namePlanchas.length; i++) {
     
-    var content = '<li>'+
-                    '<button type="button" class="collapsible coll_plancha">Plancha '+ namePlanchas[i] +'</button>'+
-                      '<div class="content">'+
-                        '<ul>';
-    var aux = 3 * i;
-    for (let j = 0; j < 3; j++) {
-      var capa = planchas[j+aux];
-      content += '<li class="content-list first">'+
-                    '<div class="group_plancha">'+
-                        '<label class="switch">'+
-                            '<input type="checkbox" id="btn_'+capa.name+'">'+
-                            '<span class="slider round"></span>'+
-                        '</label>';
-      if (j==0) {
-        content += '<a class="a_plancha">Curvas de Nivel</a>';
-      }else{
-        if (j==1) {
-          content += '<a class="a_plancha">Drenajes</a>';
-        }else{
-          content += '<a class="a_plancha">Drenajes Dobles</a>';
-        }
-      }
-      content +=  '</div>'+
-                '</li>'
-    }
-    content +=    '</ul>'+
-                '</div>'+
-              '</li>';
-    $("#lista_insumos").append(content);
+  //   var content = '<li>'+
+  //                   '<button type="button" class="collapsible coll_plancha">Plancha '+ namePlanchas[i] +'</button>'+
+  //                     '<div class="content">'+
+  //                       '<ul>';
+  //   var aux = 3 * i;
+  //   for (let j = 0; j < 3; j++) {
+  //     var capa = planchas[j+aux];
+  //     content += '<li class="content-list first">'+
+  //                   '<div class="group_plancha">'+
+  //                       '<label class="switch">'+
+  //                           '<input type="checkbox" id="btn_'+capa.name+'">'+
+  //                           '<span class="slider round"></span>'+
+  //                       '</label>';
+  //     if (j==0) {
+  //       content += '<a class="a_plancha">Curvas de Nivel</a>';
+  //     }else{
+  //       if (j==1) {
+  //         content += '<a class="a_plancha">Drenajes</a>';
+  //       }else{
+  //         content += '<a class="a_plancha">Drenajes Dobles</a>';
+  //       }
+  //     }
+  //     content +=  '</div>'+
+  //               '</li>'
+  //   }
+  //   content +=    '</ul>'+
+  //               '</div>'+
+  //             '</li>';
+  //   $("#lista_insumos").append(content);
     
-  }
-  for (let i = 0; i < planchas.length; i++) {
-    $("#btn_"+planchas[i].name).click(function () {
-      if (planchas[i].active == 0) {
-        planchas[i].active = 1;
-        planchas[i].CargarCapaPlanchas();
-      } else if (planchas[i].active == 1) {
-        planchas[i].active = 0;
-        map.removeLayer(planchas[i].capa);
-      }
-    }); 
-  }
+  // }
+  // for (let i = 0; i < planchas.length; i++) {
+  //   $("#btn_"+planchas[i].name).click(function () {
+  //     if (planchas[i].active == 0) {
+  //       planchas[i].active = 1;
+  //       planchas[i].CargarCapaPlanchas();
+  //     } else if (planchas[i].active == 1) {
+  //       planchas[i].active = 0;
+  //       map.removeLayer(planchas[i].capa);
+  //     }
+  //   }); 
+  // }
 
   // Cargando las capas de la Información Secundaria
-  for (let i = 0; i < infoSec.length; i++) {
+  // for (let i = 0; i < infoSec.length; i++) {
 
-    var content = '<li class="content-list first">'+
-                    '<div class="group_plancha">'+
-                        '<label class="switch">'+
-                            '<input type="checkbox" id="btn_infoSec_'+i+'">'+
-                            '<span class="slider round"></span>'+
-                        '</label>'+
-                        '<a class="a_plancha">'+infoSec[i].name+'</a>'
-                    '</div>'+
-                  '</li>'
+  //   var content = '<li class="content-list first">'+
+  //                   '<div class="group_plancha">'+
+  //                       '<label class="switch">'+
+  //                           '<input type="checkbox" id="btn_infoSec_'+i+'">'+
+  //                           '<span class="slider round"></span>'+
+  //                       '</label>'+
+  //                       '<a class="a_plancha">'+infoSec[i].name+'</a>'
+  //                   '</div>'+
+  //                 '</li>'
     
-    $("#lista_infoSec_"+infoSec[i].alias).append(content);
+  //   $("#lista_infoSec_"+infoSec[i].alias).append(content);
     
-    $("#btn_infoSec_"+i).click(function () {
-      var id = parseInt($(this).attr('id').split('_')[2]);
-      if (infoSec[id].active == 0) {
-        infoSec[id].active = 2;
-        infoSec[id].CargarCapaInfoSec();
-      } else if (infoSec[id].active == 1) {
-        infoSec[id].active = 2;
-        infoSec[id].capa.addTo(map);
-      } else if (infoSec[id].active == 2) {
-        infoSec[id].active = 1;
-        map.removeLayer(infoSec[id].capa);
-      }
-    }); 
-  }
+  //   $("#btn_infoSec_"+i).click(function () {
+  //     var id = parseInt($(this).attr('id').split('_')[2]);
+  //     if (infoSec[id].active == 0) {
+  //       infoSec[id].active = 2;
+  //       infoSec[id].CargarCapaInfoSec();
+  //     } else if (infoSec[id].active == 1) {
+  //       infoSec[id].active = 2;
+  //       infoSec[id].capa.addTo(map);
+  //     } else if (infoSec[id].active == 2) {
+  //       infoSec[id].active = 1;
+  //       map.removeLayer(infoSec[id].capa);
+  //     }
+  //   }); 
+  // }
 
   // Cargando Insumos generales
   for (let i = 0; i < insumosGenerales.length; i++) {
@@ -1989,15 +1986,25 @@ function CargarInsumos() {
         var propiedad;
         var color;
         var weight;
-        if (insumosGenerales[i].name == 'Grilla Planchas 25K') {
-          text ='Plancha: ';
+        if (insumosGenerales[i].name == 'Casas') {
+          text ='Casas: ';
           propiedad ='Nombre';
-          color = '#000000';
-          weight = 5;
-        } else if (insumosGenerales[i].name == 'Municipios Zona de Estudio') {
-          text ='Municipio: ';
+          color = '#ffffff';
+          weight = 3;
+        } else if (insumosGenerales[i].name == 'Unidad Morfodinámica Independiente') {
+          text ='Zona de Estudio: ';
           propiedad ='Nombre';
           color = '#bb0221';
+          weight = 3;
+        } else if (insumosGenerales[i].name == 'Cuerpos de Agua') {
+          text ='Zona de Estudio: ';
+          propiedad ='Nombre';
+          color = '#36a7e9';
+          weight = 3;
+        } else if (insumosGenerales[i].name == 'Área de Influencia DAGRAN') {
+          text ='Zona de Estudio: ';
+          propiedad ='Nombre';
+          color = '#50a000';
           weight = 3;
         }
   
@@ -2006,16 +2013,18 @@ function CargarInsumos() {
           onEachFeature: function(feature, layer) {
             if (feature.properties) {
               layer.bindPopup(Object.keys(feature.properties).map(function(k) {
-                return k + ": " + feature.properties[k];
-              }).join("<br />"), {
-                maxHeight: 200
-              });
-              layer.bindTooltip(text+feature.properties[propiedad], 
-                {
-                    permanent: false, 
-                    direction: 'top',
-                    sticky: true,
+                if(insumosGenerales[i].name == 'Zona de Estudio'){
+                  return k + ": " + feature.properties[k];
                 }
+                else{
+                  if( k == "description" ){
+                    return feature.properties["description"];
+                  }
+                }
+              })
+              .join(""), {
+                maxHeight: 200
+              }
               );
             }
           }
@@ -2067,76 +2076,76 @@ function CargarInsumos() {
   }
   
    // Cargando Morfometrias
-  for (let i = 0; i < morfometrias.length; i++) {
+  // for (let i = 0; i < morfometrias.length; i++) {
     
-    if (morfometrias[i].aux == 2) {
-      morfometrias[i].capa = L.esri.tiledMapLayer({
-        url: morfometrias[i].url
-      });
+  //   if (morfometrias[i].aux == 2) {
+  //     morfometrias[i].capa = L.esri.tiledMapLayer({
+  //       url: morfometrias[i].url
+  //     });
       
-      $("#lista_morfos").append(
-        '<li class="content-list first">'+
-          '<label class="switch">'+
-              '<input type="checkbox" id="btn_'+morfometrias[i].alias +'_'+i+'">'+
-              '<span class="slider round"></span>'+
-          '</label>'+
-          ' '+morfometrias[i].name+
-        '</li>'
-      );
-    }
+  //     $("#lista_morfos").append(
+  //       '<li class="content-list first">'+
+  //         '<label class="switch">'+
+  //             '<input type="checkbox" id="btn_'+morfometrias[i].alias +'_'+i+'">'+
+  //             '<span class="slider round"></span>'+
+  //         '</label>'+
+  //         ' '+morfometrias[i].name+
+  //       '</li>'
+  //     );
+  //   }
     
-    $("#btn_"+morfometrias[i].alias+'_'+i).click(function () {
-      var id = parseInt($(this).attr('id').split('_')[2]);
-      if (morfometrias[id].active == 0) {
-        morfometrias[id].active = 1;
-        if(morfometrias[id].aux == 1){
-          morfometrias[id].CargarCapaMapa();
-        } else{
-          morfometrias[id].capa.addTo(map);
-        }
-      } else if (morfometrias[id].active == 1) {
-        morfometrias[id].active = 0;
-        morfometrias[id].RemoverCapaMapa();
-      }
-    });
+  //   $("#btn_"+morfometrias[i].alias+'_'+i).click(function () {
+  //     var id = parseInt($(this).attr('id').split('_')[2]);
+  //     if (morfometrias[id].active == 0) {
+  //       morfometrias[id].active = 1;
+  //       if(morfometrias[id].aux == 1){
+  //         morfometrias[id].CargarCapaMapa();
+  //       } else{
+  //         morfometrias[id].capa.addTo(map);
+  //       }
+  //     } else if (morfometrias[id].active == 1) {
+  //       morfometrias[id].active = 0;
+  //       morfometrias[id].RemoverCapaMapa();
+  //     }
+  //   });
 
-  }
+  // }
 
   // Cargando Morfometrias
-  for (let i = 0; i < insumosImagenes.length; i++) {
+  // for (let i = 0; i < insumosImagenes.length; i++) {
     
-    if (insumosImagenes[i].aux == 2) {
-      insumosImagenes[i].capa = L.esri.tiledMapLayer({
-        url: insumosImagenes[i].url
-      });
+  //   if (insumosImagenes[i].aux == 2) {
+  //     insumosImagenes[i].capa = L.esri.tiledMapLayer({
+  //       url: insumosImagenes[i].url
+  //     });
       
-      $("#lista_imagenes").append(
-        '<li class="content-list first">'+
-          '<label class="switch">'+
-              '<input type="checkbox" id="btn_'+insumosImagenes[i].alias +'_'+i+'">'+
-              '<span class="slider round"></span>'+
-          '</label>'+
-          ' '+insumosImagenes[i].name+
-        '</li>'
-      );
-    }
+  //     $("#lista_imagenes").append(
+  //       '<li class="content-list first">'+
+  //         '<label class="switch">'+
+  //             '<input type="checkbox" id="btn_'+insumosImagenes[i].alias +'_'+i+'">'+
+  //             '<span class="slider round"></span>'+
+  //         '</label>'+
+  //         ' '+insumosImagenes[i].name+
+  //       '</li>'
+  //     );
+  //   }
     
-    $("#btn_"+insumosImagenes[i].alias+'_'+i).click(function () {
-      var id = parseInt($(this).attr('id').split('_')[2]);
-      if (insumosImagenes[id].active == 0) {
-        insumosImagenes[id].active = 1;
-        if(insumosImagenes[id].aux == 1){
-          insumosImagenes[id].CargarCapaMapa();
-        } else{
-          insumosImagenes[id].capa.addTo(map);
-        }
-      } else if (insumosImagenes[id].active == 1) {
-        insumosImagenes[id].active = 0;
-        insumosImagenes[id].RemoverCapaMapa();
-      }
-    });
+  //   $("#btn_"+insumosImagenes[i].alias+'_'+i).click(function () {
+  //     var id = parseInt($(this).attr('id').split('_')[2]);
+  //     if (insumosImagenes[id].active == 0) {
+  //       insumosImagenes[id].active = 1;
+  //       if(insumosImagenes[id].aux == 1){
+  //         insumosImagenes[id].CargarCapaMapa();
+  //       } else{
+  //         insumosImagenes[id].capa.addTo(map);
+  //       }
+  //     } else if (insumosImagenes[id].active == 1) {
+  //       insumosImagenes[id].active = 0;
+  //       insumosImagenes[id].RemoverCapaMapa();
+  //     }
+  //   });
 
-  }
+  // }
 
   Acordiones();
 }
@@ -2375,7 +2384,7 @@ function CargarMapas() {
 $(document).ready(function () {
 
   //------> Cargando Entidad Mapa (Leaflet)
-  map = L.map('map', {preferCanvas: true}).setView([5.52, -75.529118], 10);
+  map = L.map('map', {preferCanvas: true}).setView([5.64, -75.633], 13);
   // Añadiendo carreteras al mapa base
   // mapaBaseLabels1 = L.esri.basemapLayer('ImageryTransportation');
   // map.addLayer(mapaBaseLabels1);
@@ -2415,19 +2424,19 @@ $(document).ready(function () {
   // Cargando los Municipios con sus insumos y mapas
   // CargarMunicipios();
   // Cargando Insumos
-  // CargarInsumos();
+  CargarInsumos();
   // Cargando Mapas
   CargarMapas();
   // Cargando Botón Split
   CargarBtnSplit();
 
   CargarLocation();
-  Acordiones()
+  // Acordiones()
   // Mostrando los municipios de la zona de estudio
 
-  // insumosGenerales[3].capa.addTo(map);
-  // insumosGenerales[3].active = 1;
-  // $("#btn_municipios_3").prop("checked", true);
+  insumosGenerales[0].capa.addTo(map);
+  insumosGenerales[0].active = 1;
+  $("#btn_umi_0").prop("checked", true);
   // insumosGenerales[2].capa.addTo(map);
   // insumosGenerales[2].active = 1;
   // $("#btn_hillAlos_2").prop("checked", true);
