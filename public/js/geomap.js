@@ -477,7 +477,7 @@ function CargarCapaDatos() {
             else if (auxtipoup.includes('SGMF')){
               auxcapa = "sgmf"
             }
-            else if (auxtipoup.includes('Vivienda')){
+            else if (auxtipoup.includes('VIVIENDA')){
               auxcapa = "vivienda"
             }
             else if (auxtipoup.includes('CMM') || auxtipoup.includes('CATÁLOGO') || auxtipoup.includes('CATALOGO')){
@@ -505,8 +505,9 @@ function CargarCapaDatos() {
             else if (auxtipoup.includes('IMM')) {
               auxmarker = markerInv;
             }
-            else if (auxtipoup.includes('Vivienda')) {
+            else if (auxtipo.includes('Vivienda')) {
               auxmarker = markerViv;
+              auxcapa = "vivienda";
             }
 
             if (this.database['estacion_'+i]['Formularios']['count_UGS_Rocas']>0) {
@@ -957,6 +958,20 @@ function popupFiguras(layer) {
   }
 }
 
+function popupNewEstaciones(e) {
+  console.log(e);
+  if (estaciones == undefined) {
+    alert("Por favor activa la capa de estaciones")
+  }
+  else{
+    return L.Util.template( 
+      '<strong>Estacion Nueva</strong><br>'+
+      '<strong>Coordenadas: </strong>'+e._latlng+'<br>'+
+      '<strong><button class="estilo-modales-1" data-toggle="modal" data-target="#addEstacionModal" data-whatever="'+0+'_'+ e._latlng.lat +'_'+ e._latlng.lng +'">Ingresar Datos de Estación</button></strong><br>'
+    );
+  }
+}
+
 function popupEstaciones(layer) {
   console.log(layer.feature.layer._latlng);
   if (!editMode) {
@@ -1252,6 +1267,105 @@ $("#btnModalEditar").click(function (e) {
   
 });
 
+$('#addEstacionModal').on('shown.bs.modal', function (e) {
+  var button = $(e.relatedTarget) // Button that triggered the modal
+  const data = button.data('whatever').split("_");
+  const id = data[0];
+  const lat = data[1];
+  const lng = data[2];
+  FotosAnexasFiles = {};
+  idsFormatos = {};
+  primerForm = true;
+  primerForm1 = true;
+  $("#myTabsAdd").empty();
+  $("#myTabsContentAdd").empty();
+  $("#add-contenedorFotos").empty();
+  $("#add-contenedorFotosLib").empty();
+  $("#id-edit-estaciones").html("Registro con ID Nuevo")
+  $('#add-est-norte-1').val(lat);
+  $('#add-est-este-1').val(lng);
+  $('#add-est-propietario-3').val(uname);
+  $("#btnModalAdd").val(id);
+});
+
+$("#btnModalAdd").click(function (e) { 
+  e.preventDefault();
+
+  database.ref().child("EstacionesCampo/cont/cont").get().then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val())
+      let idEstaciones = snapshot.val();
+      let fechaEst = $.trim($('#add-est-fecha-1').val());
+      let EstacionEst = $.trim($('#add-est-estacion-1').val()); 
+      let tipoEstacionEst  = $.trim($('#add-est-tipoEstacion-1').val());
+      // let formatoEst = $.trim($('#add-est-formatos-1').val());
+      let norteEst = $.trim($('#add-est-norte-1').val());
+      let esteEst = $.trim($('#add-est-este-1').val());
+      let alturaEst = $.trim($('#add-est-altura-1').val());
+      let fotosEst = $.trim($('#add-est-fotos-1').val());
+      let fotosLibEst = $.trim($('#add-est-fotosLib-1').val());
+      let observaEst = $.trim($('#add-est-observaciones-1').val());
+      let textoLibreta = $.trim($('#add-est-textollib-1').val());
+      let propietarioEst = $.trim($('#add-est-propietario-3').val());
+
+      var datosEnvio = {
+        activo : true,
+        Fecha: fechaEst,
+        Estacion : EstacionEst,
+        TipoEstacion : tipoEstacionEst,
+        Norte : norteEst,
+        Este : esteEst,
+        Altitud : alturaEst,
+        Fotos  : fotosEst,
+        FotosLib  : fotosLibEst,
+        Observaciones : observaEst,
+        TextoLibreta : textoLibreta,
+        Propietario : propietarioEst
+      }
+                
+      datosEnvio['Formularios'] = GuardarEstacion(false, 0);
+      
+      console.log(datosEnvio);
+      delete datosEnvio.Tipo;
+
+      database.ref().child(`EstacionesCampo/estacion_${idEstaciones}`).set(datosEnvio); 
+
+      
+      estaciones["estacion_"+idEstaciones] = datosEnvio;
+
+      SubirFotosAnexas(idEstaciones, false);
+      console.log(estaciones);
+      
+      notice(`Se ha guardado exitosamente el registro ${idEstaciones} en la base de datos`, {
+        type: 'success', 
+        position: 'topcenter', 
+        appendType: 'append',
+        closeBtn: false,
+        autoClose: 4000,
+        className: '',
+      });
+
+      idEstaciones++;
+      database.ref().child(`EstacionesCampo/cont/cont`).set(idEstaciones); 
+      
+      $('#addEstacionModal').modal('hide');
+
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    $("#cargando-tabla-procesos .spinner-msj").html("Hubo un problema en el servidor al tratar de guardar los datos de la estación. Recargue la página e inténtelo de nuevo. ")
+    console.error(error);
+  });
+
+  
+  
+});
+
+$('#add-est-btn').click(function (e) { 
+  e.preventDefault();
+  GraficarEstacion(false, 0, false);    
+});
 $('#add-est-btn-edit').click(function (e) { 
   const id = $("#btnModalEditar").val();
   console.log(id);
@@ -2540,7 +2654,12 @@ function CargarDraw() {
       }else{
         drawnItems.addLayer(layer);
       }
-      layer.on('click', EditNew);
+      if (geom.type == 'Point') {
+        layer.bindPopup(popupNewEstaciones);
+      }
+      else{
+        layer.on('click', EditNew);
+      }
     } else{
       var layer = e.layer;
       var geojson = layer.toGeoJSON();

@@ -173,7 +173,7 @@
                     </div>
 
                     <!-- Sidebar Izquierda -->
-                    <aside class="out" id="sidebar-left-forms">
+                    <!-- <aside class="out" id="sidebar-left-forms">
                         <div class="btn-mapa btn-afloramiento">
                             <div class="btn-text">Formulario</div>
                         </div>
@@ -192,7 +192,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </aside>
+                    </aside> -->
 
                     <!-- Sidebar Derecha -->
                     <aside class="out" id="sidebar-left-layers">
@@ -452,6 +452,118 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="2">Cancelar</button>
                             <button type="button" id="btnModalEditar" value="btnGuardar" class="btn estilo-modales" translate="1">Guardar</button>
+                        </div>
+                    </div>
+                    
+                   
+                </form>
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal Añadir Estaciones -->
+    <div class="modal fade" id="addEstacionModal" tabindex="-1" role="dialog" aria-labelledby="tituloModalCrear" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header estilo-modales">
+                    <h5 class="modal-title" id="tituloModalCrear">Agregar Estaciones</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <h5 class="w-100 font-weight-bold mx-auto text-center" id="id-add-estaciones"></h5>
+                        <input id="add-estaciones-id" type="hidden">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-fecha-1" class="bold">Fecha</label>
+                                    <input type="date" class="form-control" id="add-est-fecha-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-estacion-1" class="bold">Estación</label>
+                                    <input type="text" class="form-control" id="add-est-estacion-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-tipoEstacion-1" class="bold">Tipo de Estación</label>
+                                    <input type="text" class="form-control" id="add-est-tipoEstacion-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-propietario-3" class="bold">Propietario</label>
+                                    <input type="text" class="form-control" id="add-est-propietario-3">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-formatos-1" class="bold">Formatos</label>
+                                    <input type="text" class="form-control" id="add-est-formatos-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-norte-1" class="bold">Norte</label>
+                                    <input type="number" step=0.000000000000001 class="form-control" id="add-est-norte-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-este-1" class="bold">Este</label>
+                                    <input type="number" step=0.000000000000001 class="form-control" id="add-est-este-1">
+                                </div>
+                                <div class="form-group col-sm-6 col-md-3">
+                                    <label for="add-est-altura-1" class="bold">Altura</label>
+                                    <input type="number" step=0.000000000000001 class="form-control" id="add-est-altura-1">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="add-est-fotos-1" class="bold">Fotografías</label>
+                                    <textarea class="form-control" rows="2" id="add-est-fotos-1"></textarea/>
+                                </div>
+                                <div class="form-group col-12 row" id="add-contenedorFotos"></div>
+                                <input type="file" class="form-control col-sm-6 col-md-4 col-lg-3" multiple id="foto_GeneralesAdd_0_0" onchange="handleFilesAflor(this.files, id)">
+                                <div class="form-group col-12">
+                                    <label for="est-fotos-1" class="bold">Fotografías Libreta</label>
+                                    <textarea class="form-control" rows="2" id="add-est-fotosLib-1"></textarea/>
+                                </div>
+                                <div class="form-group col-12 row" id="add-contenedorFotosLib"></div>
+                                <input type="file" class="form-control col-sm-6 col-md-4 col-lg-3" multiple id="foto_LibretaAdd_0_0" onchange="handleFilesAflor(this.files, id)">
+                                <div class="form-group col-12">
+                                    <label for="add-est-observaciones-1" class="bold">Observaciones</label>
+                                    <textarea class="form-control" rows="2" id="add-est-observaciones-1"></textarea/>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="add-est-formatos-select" class="bold">Escoja el formato a añadir:</label>
+                                            <select class="form-control" id="add-est-formatos-select" maxlength="10">
+                                                <option value="Ninguno">Ninguno</option>
+                                                <option value="VIVIENDA">Caracterización de Vivienda</option>
+                                                <option value="UGSR">UGS Rocas</option>
+                                                <option value="UGSS">UGS Suelos</option>
+                                                <option value="SGMF">SGMF</option>
+                                                <option value="CATALOGO">Catalogo MM</option>
+                                                <option value="INVENTARIO">Inventario MM</option>
+                                                <option value="USOS">Usos y Coberturas</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6 pt-4">
+                                            <label for="add-est-btn" class="mt-4"></label>
+                                            <button id="add-est-btn" class="btn estilo-modales bold">Agregar Formato</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <h3 class="w-100 font-weight-bold mx-auto text-center">Formatos</h3>
+                                    <div class="row">
+                                        <div class=" col-12">
+                                            <ul class="nav nav-tabs" id="myTabsAdd" role="tablist">
+                                            
+                                            </ul>
+                                            <div class="tab-content" id="myTabsContentAdd">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="2">Cancelar</button>
+                            <button type="submit" id="btnModalAdd" value="btnGuardar" class="btn estilo-modales" translate="1">Guardar</button>
                         </div>
                     </div>
                     
