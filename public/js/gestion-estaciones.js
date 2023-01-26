@@ -856,7 +856,7 @@ function GraficarEstacion(isEdit, id, addInEdit){
       e.preventDefault();
       var idfo = parseInt($(this).attr('id').split('-')[3]);
       var f = parseInt($(this).attr('id').split('-')[4]);
-      estaciones["estacion_"+idfo]["Formularios"]["Form_UGS_Rocas"]["Form_UGS_Rocas_"+f]['activo'] = false; 
+      estaciones["estacion_"+idfo]["Formularios"]["Form_VIVIENDA"]["Form_VIVIENDA_"+f]['activo'] = false; 
       $("#VIVIENDAtab-"+f).addClass('d-none');
       $("#VIVIENDAtabcontent-"+f).addClass('d-none');
       

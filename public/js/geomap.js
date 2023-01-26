@@ -1913,11 +1913,19 @@ var infoSec = [
 ];
 // Array com las grillas de las planchas 25k
 var insumosGenerales = [
-  // new Mapa(null,'municipios','Municipios Zona de Estudio',1,0,0.5, municipio),
-  new Mapa(null,'umi','Unidad Morfodinámica Independiente',1,0,0.5, umi),
-  new Mapa(null,'dagran','Área de Influencia DAGRAN',1,0,0.5, cuencaDAGRAN),
+  new Mapa(null,'municipios','Municipio',1,0,0.5, Muni),
+  new Mapa(null,'umi','Área UMI',1,0,0.5, umi),
+  new Mapa(null,'dagran','Área DAGRAN',1,0,0.5, cuencaDAGRAN),
+  new Mapa(null,'ortoCascoUrbano','Ortofoto Casco Urbano',2,0,0.5, "https://tiles.arcgis.com/tiles/gTVMpnerZFjZtXQb/arcgis/rest/services/CascoUrbano/MapServer"),
+  new Mapa(null,'ortoCascoUrbano','Ortofoto Área de Estudio',2,0,0.5, "https://tiles.arcgis.com/tiles/gTVMpnerZFjZtXQb/arcgis/rest/services/AreaEstudio/MapServer"),
   new Mapa(null,'cuerposAgua','Cuerpos de Agua',1,0,0.5, cuerposAgua),
   new Mapa(null,'casas','Casas',1,0,0.5, casas),
+  new Mapa(null,'grietas','Agrietamientos',1,0,0.5, grietas),
+  new Mapa(null,'invMM','Inventario MM',1,0,0.5, invMM),
+  new Mapa(null,'resguardos','Resguardos',1,0,0.5, resguardos),
+  new Mapa(null,'veredas','Veredas',3,0,0.5, "https://services7.arcgis.com/gTVMpnerZFjZtXQb/arcgis/rest/services/VEREDAS/FeatureServer/0"),
+  new Mapa(null,'erosion','Erosión',3,0,0.5, "https://services7.arcgis.com/gTVMpnerZFjZtXQb/arcgis/rest/services/EROSION/FeatureServer/0"),
+  new Mapa(null,'titulos','Titulos Mineros',3,0,0.5, "https://services7.arcgis.com/gTVMpnerZFjZtXQb/arcgis/rest/services/TITULOS_MINEROS/FeatureServer/0"),
 
 ];
 var insumosImagenes = [
@@ -2026,7 +2034,8 @@ function CargarInsumos() {
     } else{
       if (insumosGenerales[i].aux == 2) {
         insumosGenerales[i].capa = L.esri.tiledMapLayer({
-          url: insumosGenerales[i].url
+          url: insumosGenerales[i].url,
+          maxZoom:25
         });
         
         $("#lista_generales").append(
@@ -2042,18 +2051,15 @@ function CargarInsumos() {
       else if(insumosGenerales[i].aux == 3){
         insumosGenerales[i].capa = L.esri.featureLayer({
           url: insumosGenerales[i].url,
-        }).bindPopup(function (layer) {
-          // console.log(layer.feature.properties);
-          if(insumosGenerales[i].name=='Lineamientos 25K'){
-            return L.Util.template('<p><strong>Código</strong>: {Codigo}.<br>'+ 
-                                  '<strong>Nombre</strong>: '+ layer.feature.properties.NombreLineamiento + '.<br>'+ 
-                                  '<strong>Comentarios</strong>: '+ layer.feature.properties.Comentarios +'.<br>', layer.feature.properties);
-          }else if(insumosGenerales[i].name=='Pliegues'){
-            return L.Util.template('<p><strong>Código</strong>: {Codigo}.<br>'+ 
-                                    '<strong>Tipo</strong>: '+ ( (layer.feature.properties.Tipo == '3')? 'Anticlinal Inferido' : (layer.feature.properties.Tipo == '73') ? 'Sinclinal' : (layer.feature.properties.Tipo == '75') ? 'Sinclinal Inferido' : '' ) +'.<br>', layer.feature.properties);
+          onEachFeature: function(feature, layer) {
+            if (feature.properties) {
+              layer.bindPopup(Object.keys(feature.properties).map(function(k) {
+                return k + ": " + feature.properties[k];
+              }).join("<br />"), {
+                maxHeight: 200
+              });
+            }
           }
-          
-          
         });
 
         // Dibujando el acordion y los botones de los mapas ugs 25k
@@ -2105,20 +2111,43 @@ function CargarInsumos() {
           propiedad ='Nombre';
           color = '#ffffff';
           weight = 3;
-        } else if (insumosGenerales[i].name == 'Unidad Morfodinámica Independiente') {
+        } else if (insumosGenerales[i].name == 'Área UMI') {
           text ='Zona de Estudio: ';
           propiedad ='Nombre';
-          color = '#bb0221';
+          color = '#bb02b5';
           weight = 3;
         } else if (insumosGenerales[i].name == 'Cuerpos de Agua') {
           text ='Zona de Estudio: ';
           propiedad ='Nombre';
           color = '#36a7e9';
           weight = 3;
-        } else if (insumosGenerales[i].name == 'Área de Influencia DAGRAN') {
+        } else if (insumosGenerales[i].name == 'Área DAGRAN') {
           text ='Zona de Estudio: ';
           propiedad ='Nombre';
           color = '#50a000';
+          weight = 3;
+        }else if (insumosGenerales[i].name == 'Agrietamientos') {
+          text ='Agrietamientos: ';
+          propiedad ='Nombre';
+          color = '#ff2b2b';
+          weight = 3;
+        }
+        else if (insumosGenerales[i].name == 'Municipio') {
+          text ='Agrietamientos: ';
+          propiedad ='Nombre';
+          color = '#ff2b2b';
+          weight = 3;
+        }
+        else if (insumosGenerales[i].name == 'Inventario MM') {
+          text ='Agrietamientos: ';
+          propiedad ='Nombre';
+          color = '#ff2b2b';
+          weight = 3;
+        }
+        else if (insumosGenerales[i].name == 'Resguardos') {
+          text ='Agrietamientos: ';
+          propiedad ='Nombre';
+          color = '#56ad72';
           weight = 3;
         }
   
@@ -2126,20 +2155,29 @@ function CargarInsumos() {
           snapIgnore: true,
           onEachFeature: function(feature, layer) {
             if (feature.properties) {
-              layer.bindPopup(Object.keys(feature.properties).map(function(k) {
-                if(insumosGenerales[i].name == 'Zona de Estudio'){
-                  return k + ": " + feature.properties[k];
-                }
-                else{
-                  if( k == "description" ){
-                    return feature.properties["description"];
+              if (insumosGenerales[i].name == 'Cuerpos de Agua' || insumosGenerales[i].name == 'Casas') {
+                layer.bindPopup(Object.keys(feature.properties).map(function(k) {
+                  if(insumosGenerales[i].name == 'Zona de Estudio'){
+                    return k + ": " + feature.properties[k];
                   }
+                  else{
+                    if( k == "description" ){
+                      return feature.properties["description"];
+                    }
+                  }
+                })
+                .join(""), {
+                  maxHeight: 200
                 }
-              })
-              .join(""), {
-                maxHeight: 200
+                );
               }
-              );
+              else{
+                layer.bindPopup(Object.keys(feature.properties).map(function(k) {
+                  return k + ": " + feature.properties[k];
+                }).join("<br />"), {
+                  maxHeight: 200
+                });
+              }
             }
           }
         }).setStyle({color: color, weight: weight}); 
@@ -2550,7 +2588,7 @@ $(document).ready(function () {
 
   insumosGenerales[0].capa.addTo(map);
   insumosGenerales[0].active = 1;
-  $("#btn_umi_0").prop("checked", true);
+  $("#btn_municipios_0").prop("checked", true);
   // insumosGenerales[2].capa.addTo(map);
   // insumosGenerales[2].active = 1;
   // $("#btn_hillAlos_2").prop("checked", true);
