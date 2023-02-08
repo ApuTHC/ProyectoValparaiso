@@ -7,13 +7,19 @@ function ElementoFormato(nombre, clase, tag, stringArray) {
 
 var listaElementosVIVIENDA = [
   new ElementoFormato("ID Formato",  "edittext",  "idformatoValpa", 0),
-  new ElementoFormato("Tipo de Material",  "spinner",  "tipoMaterialValpa", ["Madera","Acero","Tapia","Concreto","Mampostería","Bahareque"]),
+  new ElementoFormato("Tipo de Material",  "spinner",  "tipoMaterialValpa", ["Madera","Acero","Tapia","Concreto","Mampostería","Bahareque","Prefabricada","Lote vacío"]),
   new ElementoFormato("Vereda o Sector",  "edittext",  "veredaValpa", 0),
   new ElementoFormato("Lugar",  "edittext",  "lugarValpa", 0),
   new ElementoFormato("Inventario o Reporte de Daños",  "edittext",  "invValpa", 0),
   new ElementoFormato("Nombre y Contacto de uno de los Dueños/as o Habitantes de la Casa",  "edittext",  "nombresValpa", 0),
   new ElementoFormato("Número de Personas que Viven en la Casa",  "edittext",  "numeroValpa", 0),
-  new ElementoFormato("Observaciones Adicionales",  "edittext",  "ObsValpa", 0)
+  new ElementoFormato( "Factores de fragilidad",  "titulo",  "", 0),
+  new ElementoFormato( "Tipología",  "spinner",  "tipologiaValpa", ["Construcciones simples - 1.0","Estructuras ligeras - 0.90","Estructuras con confinamiento deficiente - 0.70","Mampostería reforzada - 0.50","Edificaciones reforzadas - 0.3","Edificaciones con reforzamiento especial - 0.10"]  ),
+  new ElementoFormato( "Número de pisos - Salt",  "spinner",  "noPisosValpa", ["1 - 0.90","2 - 0.90","3 - 0.60","Mayor a 3 - 0.05"]),
+  new ElementoFormato( "Estado - Separación de grietas (mm) - Scon",  "spinner",  "estadoValpa", ["Muy bueno - 0mm - 0.00","Bueno - 0-0.5mm - 0.05","Deformaciones leves - 0.5-1.0mm - 0.25","Deformaciones medias - 1.0-5.0mm - 0.50","Deformaciones graves - 5.0-10.0mm - 0.75","Deformaciones muy graves - Mayores a 10mm - 1.00"] ),
+  new ElementoFormato( "Vida útil - Tipología",  "spinner",  "vidaUtilValpa", ["50 años - A y B","30 años - C y D","15 años - E","1-2 años - F"]),
+  new ElementoFormato( "Años de servicio",  "edittext",  "servicioValpa", 0),
+  new ElementoFormato( "Observaciones Adicionales",  "edittext",  "ObsValpa", 0)
 ]
 
 var ElementoSueloResidualUGSR = new ElementoFormato( "Horizonte",  "secuenciaestratisuelosres",  "secuenciaestratisuelor", ['VI','V','IV']);
@@ -792,6 +798,12 @@ function GraficarEstacion(isEdit, id, addInEdit){
       var eleName = listaElementosVIVIENDA[i].nombre;
       var eleClase = listaElementosVIVIENDA[i].clase;
       var eleStringArray = listaElementosVIVIENDA[i].stringArray;
+      if (eleClase == "titulo") {
+        formularioForm += 
+        '<div class="form-group col-12">'+
+          '<label class="bold">'+eleName+'</label>'+
+        '</div>';
+      }
       if (eleClase == "edittext") {
         formularioForm += 
         '<div class="form-group col-sm-6 col-md-3">'+
@@ -4357,7 +4369,12 @@ function GuardarEstacion(isEdit, id) {
           "nombresValpa": "",
           "numeroValpa": "",
           "tipoMaterialValpa": "",
-          "veredaValpa": ""
+          "veredaValpa": "",
+          "tipologiaValpa": "",
+          "noPisosValpa": "",
+          "estadoValpa": "",
+          "vidaUtilValpa": "",
+          "servicioValpa": ""
         }
       }
       
