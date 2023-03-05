@@ -362,7 +362,8 @@ function CapaDatos(capa, figuras, database, active, clase, name, color) {
 }
 
 var capasDatos = [
-  // new CapaDatos(null,[],null,0,'procesos','Procesos Morfodinámicos','#2ecc71'),
+  new CapaDatos(null,[],null,0,'procesos','Procesos Morfodinámicos','#2ecc71'),
+  new CapaDatos(null,[],null,0,'rasgos','Rasgos','#f1c40f'),
   // new CapaDatos(null,[],null,0,'rasgos','Rasgos','#f1c40f'),
   new CapaDatos(null,[],null,0,'estaciones','Cargar Estaciones','#f1c40f'),
   // new CapaDatos(null,[],null,0,'procesos','Procesos Morfodinámicos Puntos','#2ecc71'),
@@ -913,7 +914,7 @@ function popupFiguras(layer) {
         return L.Util.template('<p><strong>Clase</strong>: {nombreclase}.<br>'+ 
                               '<strong>ID_MOV</strong>: {ID_MOV}.<br>'+
                               '<strong>Tipo de MM</strong>: '+tipo+'.<br>'+
-                              '<strong>Subtipo</strong>: {SUBTIPO_1}.<br>'+
+                              // '<strong>Subtipo</strong>: {SUBTIPO_1}.<br>'+
                               '<strong>ID_PARTE</strong>: {ID_PARTE}.<br>'+
                               '<strong>ID en la Base de Datos</strong>: {id}.<br>'+
                               '<strong>Encuestador</strong>: {ENCUESTAD}.<br>'+
@@ -976,7 +977,7 @@ function popupEstaciones(layer) {
   console.log(layer.feature.layer._latlng);
   if (!editMode) {
 
-    var feature =  capasDatos[0].database["estacion_"+layer.feature.properties.id];
+    var feature =  capasDatos[2].database["estacion_"+layer.feature.properties.id];
 
     if(feature["Formularios"].count_UGS_Rocas>0){
       for (let j = 0; j < feature["Formularios"].count_UGS_Rocas; j++) {
@@ -1381,9 +1382,9 @@ $("#ejecutar-query").click(function(e){
     map.removeLayer(capasEst[5].capa);
     capasEst[5].capa = L.layerGroup();
   }
-  var estQuery = QueryEjecutarVisor(capasDatos[0].database);
+  var estQuery = QueryEjecutarVisor(capasDatos[2].database);
   for (let i = 0; i < estQuery.length; i++) {
-    var estaci = capasDatos[0].database["estacion_"+estQuery[i]];
+    var estaci = capasDatos[2].database["estacion_"+estQuery[i]];
     var point = L.marker([estaci['Norte'], estaci['Este']]).toGeoJSON();
     var auxmarker;
     var auxFormatosPopUp = "";
@@ -2928,7 +2929,7 @@ function ResaltarFeat(newFeat, notNew) {
           layergeojsonAnterior.setStyle({weight:3, color : capasDatos[0].color, fillColor: capasDatos[0].color, fillOpacity:0.2})
         }
       }else if (layergeojsonAnterior.feature.properties.clase == 'rasgos') {
-        layergeojsonAnterior.setStyle({weight:3, color : capasDatos[1].color, fillColor: capasDatos[2].color, fillOpacity:0.2})
+        layergeojsonAnterior.setStyle({weight:3, color : capasDatos[1].color, fillColor: capasDatos[1].color, fillOpacity:0.2})
       }else if (layergeojsonAnterior.feature.properties.clase == 'geologia') {
         layergeojsonAnterior.setStyle({weight:3, color : capasDatos[2].color, fillColor: capasDatos[3].color, fillOpacity:0.2})
       }else if (layergeojsonAnterior.feature.properties.clase == 'morfo') {
@@ -3094,7 +3095,7 @@ function EditExist(e) {
     $("#IPM_CODSIMMA").val(layergeojson.properties.COD_SIMMA);
     $("#IPM_FECREP").val(layergeojson.properties.FECHA_REP);
     $("#IPM_FECMOV").val(layergeojson.properties.FECHA_MOV);
-    $("#IPM_CONFEC").val(layergeojson.properties.ConfiFechaMM);
+    $("#IPM_CONFEC").val(layergeojson.properties.ConfiFecha);
     $("#IPM_FINFOSEC").val(layergeojson.properties.FTE_INFSEC);
     $("#IPM_ANOFUE").val(layergeojson.properties.ANOS);
     $("#IPM_DPTO").val(layergeojson.properties.DPTO);
@@ -3231,7 +3232,7 @@ function EditExistAux() {
     $("#IPM_CODSIMMA").val(layergeojson.properties.COD_SIMMA);
     $("#IPM_FECREP").val(layergeojson.properties.FECHA_REP);
     $("#IPM_FECMOV").val(layergeojson.properties.FECHA_MOV);
-    $("#IPM_CONFEC").val(layergeojson.properties.ConfiFechaMM);
+    $("#IPM_CONFEC").val(layergeojson.properties.ConfiFecha);
     $("#IPM_FINFOSEC").val(layergeojson.properties.FTE_INFSEC);
     $("#IPM_ANOFUE").val(layergeojson.properties.ANOS);
     $("#IPM_DPTO").val(layergeojson.properties.DPTO);
@@ -3505,7 +3506,7 @@ $("#procesosSave").click(function (e) {
       COD_SIMMA: $("#IPM_CODSIMMA").val(),
       FECHA_REP: $("#IPM_FECREP").val(),
       FECHA_MOV: $("#IPM_FECMOV").val(),
-      ConfiFechaMM: $("#IPM_CONFEC").val().split(' - ')[0],
+      ConfiFecha: $("#IPM_CONFEC").val().split(' - ')[0],
       FTE_INFSEC: $("#IPM_FINFOSEC").val(),
       ANOS: $("#IPM_ANOFUE").val(),
       DPTO: $("#IPM_DPTO").val(),
@@ -5143,11 +5144,11 @@ function PrepararIPMparaSubir() {
     delete alturas["features"][i]["properties"]["RASTERVALU"];
     delete alturas["features"][i]["properties"]["Area"];
     delete alturas["features"][i]["properties"]["Obs"];
-    alturas["features"][i]["properties"]["ID_FORMAT"] = "SIMMA"+alturas["features"][i]["properties"]["COD_SIMMA"];
-    if (alturas["features"][i]["properties"]["ID_PARTE"] == undefined) {
-      alturas["features"][i]["properties"]["PARTE"] = "00";
-      alturas["features"][i]["properties"]["ID_PARTE"] = alturas["features"][i]["properties"]["ID_MOV"]+"-"+alturas["features"][i]["properties"]["PARTE"];
-    }
+    // alturas["features"][i]["properties"]["ID_FORMAT"] = "SIMMA"+alturas["features"][i]["properties"]["COD_SIMMA"];
+    // if (alturas["features"][i]["properties"]["ID_PARTE"] == undefined) {
+    //   alturas["features"][i]["properties"]["PARTE"] = "00";
+    //   alturas["features"][i]["properties"]["ID_PARTE"] = alturas["features"][i]["properties"]["ID_MOV"]+"-"+alturas["features"][i]["properties"]["PARTE"];
+    // }
     nueva["feature_"+newCount] = {};
     nueva["feature_"+newCount]["layergeojson"] = alturas["features"][i];
     nueva["feature_"+newCount]["id"] = newCount;
@@ -5510,7 +5511,7 @@ function cargarDatosINV(formato) {
   $("#IPM_CODSIMMA").val(formato["COD_SIMMA"]);
   $("#IPM_FECREP").val(CorregirFechasPorImpedidos(formato["FECHA_REP"]));
   $("#IPM_FECMOV").val(CorregirFechasPorImpedidos(formato["FECHA_MOV"]));
-  $("#IPM_CONFEC").val(confifecha[formato["ConfiFechaMM"]]);
+  $("#IPM_CONFEC").val(confifecha[formato["ConfiFecha"]]);
   $("#IPM_FINFOSEC").val(formato["FTE_INFSEC"]);
   $("#IPM_REFGEO").val(formato["REF_GEOGRF"]);
   $("#IPM_VEREDA").val(formato["VEREDA"]);
@@ -5590,7 +5591,7 @@ function cargarDatosCAT(formato) {
   $("#IPM_CODSIMMA").val(formato["COD_SIMMA"]);
   $("#IPM_FECREP").val(CorregirFechasPorImpedidos(formato["FECHA_REP"]));
   $("#IPM_FECMOV").val(CorregirFechasPorImpedidos(formato["FECHA_MOV"]));
-  $("#IPM_CONFEC").val(confifecha[formato["ConfiFechaMM"]]);
+  $("#IPM_CONFEC").val(confifecha[formato["ConfiFecha"]]);
   $("#IPM_FINFOSEC").val(formato["FTE_INFSEC"]);
   $("#IPM_REFGEO").val(formato["REF_GEOGRF"]);
   $("#IPM_VEREDA").val(formato["VEREDA"]);
@@ -5977,6 +5978,13 @@ function GenerarXLSX() {
             }
           }
         }
+        if(feature["Formularios"].count_VIVIENDA>0){
+          for (let j = 0; j < feature["Formularios"].count_VIVIENDA; j++) {
+            if (feature["Formularios"]["Form_VIVIENDA"]["Form_VIVIENDA_"+j].activo) {
+              formatos += "VIVIENDA_" + feature["Formularios"]["Form_VIVIENDA"]["Form_VIVIENDA_"+j].idformatoValpa + ', '; 
+            }
+          }
+        }
     
         if ((formatos == '')) {
           formatos = "Ninguno";
@@ -5986,6 +5994,7 @@ function GenerarXLSX() {
     
         var auxrow = [];
         
+        auxrow.push(i);
         auxrow.push(feature.Fecha);
         auxrow.push(feature.Estacion);
         auxrow.push(feature.TipoEstacion);
@@ -6016,12 +6025,12 @@ function GenerarXLSX() {
     };
   
     /* fix headers */
-    XLSX.utils.sheet_add_aoa(worksheet, [["Fecha", "Estaciones", "Tipo de Estación", "Formatos", "Este", "Norte", "Altitud", "Fotografías", "Fotografías Libreta", "Observaciones", "Propietario"]], { origin: "A1" });
+    XLSX.utils.sheet_add_aoa(worksheet, [["id","Fecha", "Estaciones", "Tipo de Estación", "Formatos", "Este", "Norte", "Altitud", "Fotografías", "Fotografías Libreta", "Observaciones", "Propietario"]], { origin: "A1" });
   
     /* calculate column width */
     // const max_width = rows.reduce((w, r) => Math.max(w, r.name.length), 10);
     console.log(worksheet);
-    worksheet["!cols"] = [{wpx : 80},{wpx : 80},{ wpx : 150 },{ wpx : 150 },{wpx : 100},{wpx : 100},{wpx : 100},{ wpx : 200 },{ wpx : 200 },{ wpx : 250 },{ wpx : 150 }];
+    worksheet["!cols"] = [{wpx : 50},{wpx : 80},{wpx : 80},{ wpx : 150 },{ wpx : 150 },{wpx : 100},{wpx : 100},{wpx : 100},{ wpx : 200 },{ wpx : 200 },{ wpx : 250 },{ wpx : 150 }];
     // worksheet["!rows"] = [{hpx : 80},{wpx : 80},{ hpx : 150 },{ wpx : 150 },{wpx : 100},{wpx : 100},{wpx : 100},{ wpx : 200 },{ wpx : 200 },{ wpx : 250 }];
     worksheet['!outline'] = [{'above':true}, {'left':false}];
     /* create an XLSX file and try to save to Presidents.xlsx */
@@ -6600,7 +6609,7 @@ function DepurarDatosEstaciones() {
 
 
             formatos += "CATALOGO_" + feature["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].ID_PARTE + ', '; 
-            base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].ConfiFechaMM = confifecha[base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].ConfiFechaMM];
+            base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].ConfiFecha = confifecha[base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].ConfiFecha];
             base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].TIPO_MOV1 = tipomov[base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].TIPO_MOV1];
             base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].TIPO_MOV2 = tipomov[base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].TIPO_MOV2];
             base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].SUBTIPO_1 = subtipomov1[base_clase["estacion_" + i]["Formularios"]["Form_CATALOGO"]["Form_CATALOGO_"+j].SUBTIPO_1];
@@ -6676,7 +6685,7 @@ function DepurarDatosEstaciones() {
           if (feature["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].activo) {
             formatos += "INVENTARIO_" + feature["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].ID_PARTE + ', '; 
           
-            base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].ConfiFechaMM = confifecha[base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].ConfiFechaMM];
+            base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].ConfiFecha = confifecha[base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].ConfiFecha];
             base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].TIPO_MOV1 = tipomov[base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].TIPO_MOV1];
             base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].TIPO_MOV2 = tipomov[base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].TIPO_MOV2];
             base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].SUBTIPO_1 = subtipomov1MM[base_clase["estacion_" + i]["Formularios"]["Form_INVENTARIO"]["Form_INVENTARIO_"+j].SUBTIPO_1];
@@ -7019,6 +7028,14 @@ function GenerarCapaEstaciones() {
           }
         }
       }
+      if (base_clase['estacion_'+i]['Formularios']['count_VIVIENDA']>0) {
+        for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_VIVIENDA']; k++) {
+          if (base_clase['estacion_'+i]['Formularios']['Form_VIVIENDA']['Form_VIVIENDA_'+k]['activo']) {
+            auxFormatosPopUp += 'VIVIENDA' + base_clase['estacion_'+i]['Formularios']['Form_VIVIENDA']['Form_VIVIENDA_'+k]['noformato'] + ', ';   
+            tematica = "VIVIENDA";
+          }
+        }
+      }
       if (base_clase['estacion_'+i]['Formularios']['count_CATALOGO']>0) {
         for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_CATALOGO']; k++) {
           if (base_clase['estacion_'+i]['Formularios']['Form_CATALOGO']['Form_CATALOGO_'+k]['activo']) {
@@ -7172,6 +7189,150 @@ function GenerarCapaNombreUGS() {
   console.log(contCat);
 }
 
+// GenerarCapaVIVIENDA()
+function GenerarCapaVIVIENDA() {
+  var capaProcesos = L.layerGroup();
+  var capaEstacionesProcesos = L.layerGroup();
+  var auxEstaciones = [];
+  var auxFormatosPopUp = "";
+  var contInv = 0;
+  var contCat = 0;
+  for (let i = 0; i < base_clase["cont"]["cont"]; i++) {
+    var feature = base_clase["estacion_" + i];
+    if (feature.activo) {
+      if(feature["Formularios"].count_VIVIENDA>0){        
+        for (let j = 0; j < feature["Formularios"].count_VIVIENDA; j++) {
+          if (feature["Formularios"]["Form_VIVIENDA"]["Form_VIVIENDA_"+j].activo) {
+            var formato = feature["Formularios"]["Form_VIVIENDA"]["Form_VIVIENDA_"+j]; 
+            
+            var point = L.marker([feature['Norte'], feature['Este']]).toGeoJSON();
+            const nameProcess = "VIVIENDA" + contCat;
+            contCat++;
+
+            L.extend(point.properties, {
+              id: i,
+              Estacion: feature['Estacion'],
+              Clase: "Vivienda",
+              Propietario: feature['Propietario'],
+              Este: feature['Este'],
+              Norte: feature['Norte'],
+              Fecha: feature['Fecha'],
+              Observaciones: feature['Observaciones'],
+              Altitud: feature['Altitud'],
+              ESTADO: formato.estadoValpa,
+              IDFORMAT: formato.idformatoValpa,
+              INV: formato.invValpa,
+              LUGAR: formato.lugarValpa,
+              NUMPISOS: formato.noPisosValpa,
+              NOMBRES: formato.nombresValpa,
+              NUMERO: formato.numeroValpa,
+              SERVICIO: formato.servicioValpa,
+              TIPOMAT: formato.tipoMaterialValpa,
+              TIPOLOGIA: formato.tipologiaValpa,
+              VEREDA: formato.veredaValpa,
+              VIDAUTIL: formato.vidaUtilValpa,
+
+
+            });
+            // if (formato.ConfiFecha == "Exacta") {
+            //   L.geoJson(point).addTo(capaProcesos);
+            // }
+            L.geoJson(point).addTo(capaProcesos);
+
+            if(!auxEstaciones.includes(i)){
+              auxEstaciones.push(i);
+              var point = L.marker([base_clase['estacion_'+i]['Norte'], base_clase['estacion_'+i]['Este']]).toGeoJSON();
+
+              if (base_clase['estacion_'+i]['Formularios']['count_UGS_Rocas']>0) {
+                for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_UGS_Rocas']; k++) {
+                  auxFormatosPopUp += 'UGSR' + base_clase['estacion_'+i]['Formularios']['Form_UGS_Rocas']['Form_UGS_Rocas_'+k]['noformato'] + ', ';   
+                }
+                auxmarker = markerUGSR;
+                auxcapa = "ugs"
+              }
+              if (base_clase['estacion_'+i]['Formularios']['count_UGS_Suelos']>0) {
+                for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_UGS_Suelos']; k++) {
+                  auxFormatosPopUp += 'UGSS' + base_clase['estacion_'+i]['Formularios']['Form_UGS_Suelos']['Form_UGS_Suelos_'+k]['noformato'] + ', ';   
+                }
+                auxmarker = markerUGSS;
+                auxcapa = "ugs"
+              }
+              if (base_clase['estacion_'+i]['Formularios']['count_SGMF']>0) {
+                for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_SGMF']; k++) {
+                  auxFormatosPopUp += 'SGMF' + base_clase['estacion_'+i]['Formularios']['Form_SGMF']['Form_SGMF_'+k]['noformato'] + ', ';   
+                }
+                auxmarker = markerSGMF;
+                auxcapa = "sgmf"
+              }
+              if (base_clase['estacion_'+i]['Formularios']['count_CATALOGO']>0) {
+                for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_CATALOGO']; k++) {
+                  auxFormatosPopUp += 'CATALOGO_' + base_clase['estacion_'+i]['Formularios']['Form_CATALOGO']['Form_CATALOGO_'+k]['ID_PARTE'] + ', ';   
+                }
+                auxmarker = markerCat;
+                auxcapa = "cat"
+              }
+              if (base_clase['estacion_'+i]['Formularios']['count_INVENTARIO']>0) {
+                for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_INVENTARIO']; k++) {
+                  auxFormatosPopUp += 'INVENTARIO_' + base_clase['estacion_'+i]['Formularios']['Form_INVENTARIO']['Form_INVENTARIO_'+k]['ID_PARTE'] + ', ';   
+                }
+                auxmarker = markerInv;
+                auxcapa = "inv"
+              }
+              if (base_clase['estacion_'+i]['Formularios']['count_VIVIENDA']>0) {
+                for (let k = 0; k < base_clase['estacion_'+i]['Formularios']['count_VIVIENDA']; k++) {
+                  auxFormatosPopUp += 'VIVIENDA_' + base_clase['estacion_'+i]['Formularios']['Form_VIVIENDA']['Form_VIVIENDA_'+k]['idformatoValpa'] + ', ';   
+                }
+                auxmarker = markerInv;
+                auxcapa = "VIVIENDA"
+              }
+
+              L.extend(point.properties, {
+                id: i,
+                Estacion: base_clase['estacion_'+i]['Estacion'],
+                Fecha: base_clase['estacion_'+i]['Fecha'],
+                TipoEstacion: base_clase['estacion_'+i]['TipoEstacion'],
+                Propietario: base_clase['estacion_'+i]['Propietario'],
+                Observaciones: base_clase['estacion_'+i]['Observaciones'],
+                Este: base_clase['estacion_'+i]['Este'],
+                Norte: base_clase['estacion_'+i]['Norte'],
+                Altitud: base_clase['estacion_'+i]['Altitud'],
+                Formatos: auxFormatosPopUp
+              });
+              auxFormatosPopUp = "";
+              
+              // console.log(i);
+              L.geoJson(point).addTo(capaEstacionesProcesos);
+            }
+
+
+
+          }
+        }
+      }  
+      if (feature['Estacion'] === "CENSO POTENCIAL") {
+        var point = L.marker([feature['Norte'], feature['Este']]).toGeoJSON();
+        L.extend(point.properties, {
+          id: i,
+          Estacion: feature['Estacion'],
+          Clase: "Vivienda",
+          Propietario: feature['Propietario'],
+          Este: feature['Este'],
+          Norte: feature['Norte'],
+          Fecha: feature['Fecha'],
+          Observaciones: feature['Observaciones'],
+          Altitud: feature['Altitud'],
+        });
+
+        L.geoJson(point).addTo(capaProcesos);
+      }   
+    }
+  }
+  console.log(base_clase);
+  console.log(capaProcesos.toGeoJSON());
+  console.log(capaEstacionesProcesos.toGeoJSON());
+  console.log(contInv);
+  console.log(contCat);
+}
 // GenerarCapaProcesosCampo()
 function GenerarCapaProcesosCampo() {
   var capaProcesos = L.layerGroup();
@@ -7218,7 +7379,7 @@ function GenerarCapaProcesosCampo() {
               SUBTIPO_2: formato.SUBTIPO_2,
               FECHA_MOV: formato.FECHA_MOV,
               FECHA_REP: formato.FECHA_REP,
-              ConfiFecha: formato.ConfiFechaMM,
+              ConfiFecha: formato.ConfiFecha,
               COD_SIMMA: formato.COD_SIMMA,
               ID_PARTE: formato.ID_PARTE,
               NOM_MUN: formato.NOM_MUN,
@@ -7244,7 +7405,7 @@ function GenerarCapaProcesosCampo() {
               sensoresremotos: formato.sensoresremotos
 
             });
-            // if (formato.ConfiFechaMM == "Exacta") {
+            // if (formato.ConfiFecha == "Exacta") {
             //   L.geoJson(point).addTo(capaProcesos);
             // }
             L.geoJson(point).addTo(capaProcesos);
@@ -7332,7 +7493,7 @@ function GenerarCapaProcesosCampo() {
               SUBTIPO_2: formato.SUBTIPO_2,
               FECHA_MOV: formato.FECHA_MOV,
               FECHA_REP: formato.FECHA_REP,
-              ConfiFecha: formato.ConfiFechaMM,
+              ConfiFecha: formato.ConfiFecha,
               COD_SIMMA: formato.COD_SIMMA,
               ID_PARTE: formato.ID_PARTE,
               NOM_MUN: formato.NOM_MUN,
@@ -7355,7 +7516,7 @@ function GenerarCapaProcesosCampo() {
               sensoresremotos: formato.sensoresremotos
             });
 
-            // if (formato.ConfiFechaMM == "Exacta") {
+            // if (formato.ConfiFecha == "Exacta") {
             //   L.geoJson(point).addTo(capaProcesos);
             // }
             L.geoJson(point).addTo(capaProcesos);
@@ -7531,7 +7692,7 @@ function SubirINVCATaProcesos(cont){
                 alturas["features"][idfor]["properties"]["COD_SIMMA"] = formato["COD_SIMMA"];
                 alturas["features"][idfor]["properties"]["FECHA_REP"] = CorregirFechasPorImpedidos(formato["FECHA_REP"]);
                 alturas["features"][idfor]["properties"]["FECHA_MOV"] = CorregirFechasPorImpedidos(formato["FECHA_MOV"]);
-                alturas["features"][idfor]["properties"]["ConfiFechaMM"] = confifecha[formato["ConfiFechaMM"]];
+                alturas["features"][idfor]["properties"]["ConfiFecha"] = confifecha[formato["ConfiFecha"]];
                 alturas["features"][idfor]["properties"]["FTE_INFSEC"] = formato["FTE_INFSEC"];
                 alturas["features"][idfor]["properties"]["REF_GEOGRF"] = formato["REF_GEOGRF"];
                 alturas["features"][idfor]["properties"]["VEREDA"] = formato["VEREDA"];
@@ -7608,7 +7769,7 @@ function SubirINVCATaProcesos(cont){
                 }
                 alturas["features"][idfor]["properties"]["FECHA_REP"] = CorregirFechasPorImpedidos(formato["FECHA_REP"]);
                 alturas["features"][idfor]["properties"]["FECHA_MOV"] = CorregirFechasPorImpedidos(formato["FECHA_MOV"]);
-                alturas["features"][idfor]["properties"]["ConfiFechaMM"] = confifecha[formato["ConfiFechaMM"]];
+                alturas["features"][idfor]["properties"]["ConfiFecha"] = confifecha[formato["ConfiFecha"]];
                 alturas["features"][idfor]["properties"]["FTE_INFSEC"] = formato["FTE_INFSEC"];
                 alturas["features"][idfor]["properties"]["REF_GEOGRF"] = formato["REF_GEOGRF"];
                 alturas["features"][idfor]["properties"]["VEREDA"] = formato["VEREDA"];
@@ -8107,7 +8268,7 @@ function DepurarIPM2Catalogos() {
   //               SUBTIPO_2: formato.SUBTIPO_2,
   //               FECHA_MOV: formato.FECHA_MOV,
   //               FECHA_REP: formato.FECHA_REP,
-  //               ConfiFecha: formato.ConfiFechaMM,
+  //               ConfiFecha: formato.ConfiFecha,
   //               COD_SIMMA: formato.COD_SIMMA,
   //               ID_PARTE: formato.ID_PARTE,
   //               NOM_MUN: formato.NOM_MUN,
@@ -8130,7 +8291,7 @@ function DepurarIPM2Catalogos() {
   //               sensoresremotos: formato.sensoresremotos
   
   //             });
-  //             // if (formato.ConfiFechaMM == "Exacta") {
+  //             // if (formato.ConfiFecha == "Exacta") {
   //             //   L.geoJson(point).addTo(capaProcesos);
   //             // }
   //             L.geoJson(point).addTo(capaProcesos);
@@ -8150,3 +8311,176 @@ function DepurarIPM2Catalogos() {
 
 }
 
+// const xhr = new XMLHttpRequest();
+// const url = 'https://ogre.adc4gis.com/convertJson';
+// xhr.open('POST', url, true);
+// xhr.setRequestHeader('Content-type', 'application/json');
+
+// xhr.onreadystatechange = function () {
+//   console.log(xhr.responseText);
+//   console.log(xhr.readyState);
+//   // console.log(xhr.response);
+//   if (xhr.readyState === 4 && xhr.status === 200) {
+//     const blob = new Blob([xhr.response], { type: 'application/zip' });
+//     const url = window.URL.createObjectURL(blob);
+//     const a = document.createElement('a');
+//     document.body.appendChild(a);
+//     a.style.display = 'none';
+//     a.href = url;
+//     a.download = 'shapefile.zip';
+//     a.click();
+//     window.URL.revokeObjectURL(url);
+//   }
+// };
+
+// const data = {
+//   json: '{"type": "FeatureCollection","features": [{"type": "Feature","geometry": { "type": "Point", "coordinates": [102.0, 0.5] },"properties": { "prop0": "value0" }}]}',
+// };
+
+
+// xhr.send(JSON.stringify(data));
+
+
+// Definir el objeto JSON
+var myJson = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.33453,
+          47.60777
+        ]
+      },
+      "properties": {
+        "name": "Pike Place Markfvbfvfvfet"
+      }
+    }
+  ]
+};
+
+// // Convertir el objeto JSON a una cadena de texto
+// var jsonString = {json:JSON.stringify(myJson)};
+
+// // Crear la solicitud AJAX
+// var xhr = new XMLHttpRequest();
+// xhr.open("POST", "https://ogre.adc4gis.com/convertJson", true);
+// xhr.setRequestHeader("Content-Type", "application/json");
+// xhr.responseType = "blob";
+
+// // Procesar la respuesta
+// xhr.onreadystatechange = function () {
+//   if (xhr.readyState === 4 && xhr.status === 200) {
+//     // Crear un objeto URL para descargar el archivo
+//     var url = window.URL.createObjectURL(xhr.response);
+//     // Crear un enlace de descarga y hacer clic en él
+//     var a = document.createElement("a");
+//     a.href = url;
+//     a.download = "myShapefile.zip";
+//     document.body.appendChild(a);
+//     a.click();
+//     // Liberar el objeto URL
+//     window.URL.revokeObjectURL(url);
+//   }
+// };
+
+// // Enviar la solicitud AJAX
+// xhr.send(jsonString);
+
+
+// var params ={
+//   json: JSON.stringify(myJson), 
+//   outputName:"zippedshp"
+// }
+
+// var data='';
+// var blob='';
+
+// $.ajax({
+//   url:'http://ogre.adc4gis.com/convertJson',
+//   type: "POST",
+//   data: params,
+//   success: function(response, status, xhr) {
+//       var filename = "zippedshp";
+//       var type = xhr.getResponseHeader('Content-Type');
+//       blob = new Blob([response], { type: type });
+
+
+//     //   // Leer el contenido del objeto Blob
+//     // readBlob(blob).then((buffer) => {
+//     //   // Verificar la longitud del objeto Blob
+//     //   if (buffer.byteLength < 1336) {
+//     //     // Ajustar la longitud del objeto Blob
+//     //     var newBuffer = new ArrayBuffer(1335);
+//     //     var newUint8Array = new Uint8Array(newBuffer);
+//     //     var uint8Array = new Uint8Array(buffer);
+//     //     for (var i = 0; i < uint8Array.length; i++) {
+//     //       newUint8Array[i] = uint8Array[i];
+//     //     }
+//     //     buffer = newBuffer;
+//     //   }
+//     //   // Convertir el contenido a un objeto ArrayBuffer
+//     //   data = new Uint8Array(buffer);
+      
+//     //   // Convertir el objeto ArrayBuffer a un objeto shapefile utilizando shpjs
+//     //   shp(data).then(function (geojson) {
+//     //     console.log('sdsdsdds');
+//     //     // Crear un objeto JSZip para comprimir el archivo shapefile
+//     //     var zip = new JSZip();
+//     //     // Agregar los archivos shapefile al objeto JSZip
+//     //     zip.file("myShapefile.shp", geojson.shp.buffer, { binary: true });
+//     //     zip.file("myShapefile.shx", geojson.shx.buffer, { binary: true });
+//     //     zip.file("myShapefile.dbf", geojson.dbf.buffer, { binary: true });
+//     //     // Descargar el archivo .shz
+//     //     zip.generateAsync({ type: "blob" }).then(function (blob) {
+//     //       var url = window.URL.createObjectURL(blob);
+//     //       var a = document.createElement("a");
+//     //       a.href = url;
+//     //       a.download = "myShapefile.shz";
+//     //       document.body.appendChild(a);
+//     //       a.click();
+//     //       window.URL.revokeObjectURL(url);
+//     //     });
+//     //   });
+//     // });
+
+
+//       if (typeof window.navigator.msSaveBlob !== 'undefined') {
+//           window.navigator.msSaveBlob(blob, filename);
+//       }
+//       else {
+//           var URL = window.URL || window.webkitURL;
+//           var downloadUrl = URL.createObjectURL(blob);
+//           console.log(blob);
+//           if (filename){
+//               var a = document.createElement("a");
+//               if (typeof a.download === 'undefined') {
+//                   window.location = downloadUrl;
+//               }
+//               else {
+//                   a.href = downloadUrl;
+//                   a.download = filename;
+//                   document.body.appendChild(a);
+//                   a.click();
+//               }
+//           }
+//           else {
+//               window.location = downloadUrl;
+//           }
+//           setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100);
+//       }
+//   }
+// });
+
+// function readBlob(blob) {
+//   return new Promise((resolve, reject) => {
+//     var reader = new FileReader();
+//     reader.onload = () => {
+//       resolve(reader.result);
+//     };
+//     reader.onerror = reject;
+//     reader.readAsArrayBuffer(blob);
+//   });
+// }
