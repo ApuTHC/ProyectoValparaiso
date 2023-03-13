@@ -595,7 +595,7 @@
                             <!-- <button class="btn btn-propia2 d-block mb-1 mx-auto" id="sgmfnew" onclick="QueryTipoForm(id)">(SGMF) Nueva SGMF</button> -->
                             <button class="btn btn-propia2 d-block mb-1 mx-auto" id="cat" onclick="QueryTipoForm(id)">CATALOGO</button>
                             <button class="btn btn-propia2 d-block mb-1 mx-auto" id="inv" onclick="QueryTipoForm(id)">INVENTARIO</button>
-                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="inv" onclick="QueryTipoForm(id)">VIVIENDA</button>
+                            <button class="btn btn-propia2 d-block mb-1 mx-auto" id="viv" onclick="QueryTipoForm(id)">VIVIENDA</button>
                         </div>
                         <div class="col-12 col-md-5 border-right border-left">
                             <h4 class="font-weight-bold">Campos del Formulario</h4>
@@ -625,6 +625,10 @@
                             <h4 class="font-weight-bold">Query</h4>
                             <div class="formula" id="formula-form-query">
                                 <p>Elija el tipo de formulario</p>
+                            </div>
+                            <h4 class="font-weight-bold">Query Predeterminadas</h4>
+                            <div class="formula">
+                                <button class="btn btn-propia m-1" id="veredas-query" onclick="QueryVeredas()">Vereda Vacía</button>
                             </div>
                             <button class="btn btn-propia m-1" id="ejecutar-query">Aceptar</button>
                             <button class="btn btn-propia m-1" id="borrar-query" onclick="QueryBorrar()">Reiniciar</button>

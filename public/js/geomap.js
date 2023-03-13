@@ -627,7 +627,7 @@ function CargarCapaDatos() {
                   '</div>'+
               '</li>'
             );
-            $("#list_aflora").parent().css("max-height"," 402px")
+            $("#list_aflora").parent().css("max-height"," 445px")
           }
           else {
             $("#list_aflora").append(
@@ -1379,8 +1379,8 @@ var auxCapaQuery = false;
 $("#ejecutar-query").click(function(e){
   e.preventDefault();
   if (auxCapaQuery) {
-    map.removeLayer(capasEst[5].capa);
-    capasEst[5].capa = L.layerGroup();
+    map.removeLayer(capasEst[6].capa);
+    capasEst[6].capa = L.layerGroup();
   }
   var estQuery = QueryEjecutarVisor(capasDatos[2].database);
   for (let i = 0; i < estQuery.length; i++) {
@@ -1394,7 +1394,7 @@ $("#ejecutar-query").click(function(e){
     if (auxtipoup.includes('UGS')){
       auxcapa = "ugs"
     }
-    else if (auxtipoup.includes('Vivienda')){
+    else if (auxtipoup.includes('VIVIENDA')){
       auxcapa = "vivienda"
     }
     else if (auxtipoup.includes('SGMF')){
@@ -1425,7 +1425,7 @@ $("#ejecutar-query").click(function(e){
     else if (auxtipoup.includes('IMM')) {
       auxmarker = markerInv;
     }
-    else if (auxtipoup.includes('Vivienda')) {
+    else if (auxtipoup.includes('VIVIENDA')) {
       auxmarker = markerViv;
     }
 
@@ -1464,6 +1464,13 @@ $("#ejecutar-query").click(function(e){
       auxmarker = markerInv;
       auxcapa = "inv"
     }
+    if (estaci['Formularios']['count_VIVIENDA']>0) {
+      for (let k = 0; k < estaci['Formularios']['count_VIVIENDA']; k++) {
+        auxFormatosPopUp += 'VIVIENDA_' + estaci['Formularios']['Form_VIVIENDA']['Form_VIVIENDA_'+k]['idformatoValpa'] + ', ';   
+      }
+      auxmarker = markerViv;
+      auxcapa = "vivienda"
+    }
 
     L.extend(point.properties, {
       id: estQuery[i],
@@ -1477,7 +1484,7 @@ $("#ejecutar-query").click(function(e){
       Altitud: estaci['Altitud'],
       Formatos: auxFormatosPopUp
     });
-    capasEst[5].figuras.push(point);
+    capasEst[6].figuras.push(point);
     // console.log(i);
     var puntico = L.geoJson(point,{
         onEachFeature: function (feature, layer) {
@@ -1487,15 +1494,15 @@ $("#ejecutar-query").click(function(e){
         }
       })
       .bindPopup(popupEstaciones)
-      .addTo(capasEst[5].capa)
+      .addTo(capasEst[6].capa)
       .addTo(allData); 
 
   }
-  capasEst[5].capa.addTo(map);
-  capasEst[5].active = 2;
+  capasEst[6].capa.addTo(map);
+  capasEst[6].active = 2;
   auxCapaQuery = true;
   $('#id-Query-Estaciones').modal('hide');
-  $("#est_5").prop("checked", true);
+  $("#est_6").prop("checked", true);
 })
 
 

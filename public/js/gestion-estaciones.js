@@ -8,12 +8,12 @@ function ElementoFormato(nombre, clase, tag, stringArray) {
 var listaElementosVIVIENDA = [
   new ElementoFormato("ID Formato",  "edittext",  "idformatoValpa", 0),
   new ElementoFormato("Tipo de Material",  "spinner",  "tipoMaterialValpa", ["Madera","Acero","Tapia","Concreto","Mampostería","Bahareque","Prefabricada","Lote vacío"]),
-  new ElementoFormato("Vereda o Sector",  "edittext",  "veredaValpa", 0),
+  new ElementoFormato("Vereda o Sector",  "spinner",  "veredaValpa", ["No Aplica","","EL GUAYABO","EL LIBANO","MALLARINO","LA MACHONTA","EL BOSQUE","POTRERILLO","PLAYA RICA","LA MESETA","LA SARDINA","LA HERRADURA","LA FABIANA","LA GRACIELA","BOLAÑOS"]),
   new ElementoFormato("Lugar",  "edittext",  "lugarValpa", 0),
   new ElementoFormato("Inventario o Reporte de Daños",  "edittext",  "invValpa", 0),
   new ElementoFormato("Nombre y Contacto de uno de los Dueños/as o Habitantes de la Casa",  "edittext",  "nombresValpa", 0),
   new ElementoFormato("Número de Personas que Viven en la Casa",  "edittext",  "numeroValpa", 0),
-  new ElementoFormato( "Factores de fragilidad",  "titulo",  "", 0),
+  new ElementoFormato( "Factores de fragilidad",  "titulo",  "titu", 0),
   new ElementoFormato( "Tipología",  "spinner",  "tipologiaValpa", ["Construcciones simples - 1.0","Estructuras ligeras - 0.90","Estructuras con confinamiento deficiente - 0.70","Mampostería reforzada - 0.50","Edificaciones reforzadas - 0.3","Edificaciones con reforzamiento especial - 0.10"]  ),
   new ElementoFormato( "Número de pisos - Salt",  "spinner",  "noPisosValpa", ["1 - 0.90","2 - 0.90","3 - 0.60","Mayor a 3 - 0.05"]),
   new ElementoFormato( "Estado - Separación de grietas (mm) - Scon",  "spinner",  "estadoValpa", ["Muy bueno - 0mm - 0.00","Bueno - 0-0.5mm - 0.05","Deformaciones leves - 0.5-1.0mm - 0.25","Deformaciones medias - 1.0-5.0mm - 0.50","Deformaciones graves - 5.0-10.0mm - 0.75","Deformaciones muy graves - Mayores a 10mm - 1.00"] ),
@@ -32,12 +32,12 @@ var listaElementosUGSR = [
   new ElementoFormato( "Número de la Estación",  "edittext",  "noestacion", 0),
   new ElementoFormato( "Clase Afloramiento",  "spinner",  "claseaflor", ['Natural','Corte superficial','Excavación subterránea','Trinchera, Apique']),
   new ElementoFormato( "Secuencia Estrati",  "secuenciaestrati",  "secuenciaestratiopt", ['Depósito de Gravedad','Suelo Transportado','Suelo Residual','Roca']),
-  new ElementoFormato( "CARACTERIZACIÓN DE LA UGS / UGI",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERIZACIÓN DE LA UGS / UGI",  "titulo",  "titu", 0),
   new ElementoFormato( "Perfil de meteorización (Dearman 1974)",  "edittext",  "perfilmeteorizacion", 0),
   new ElementoFormato( "N° litologías asociadas a la UGS /UGI",  "litologias",  "litologiasasociadasopt", 0),
   new ElementoFormato( "Nombre de la UGS / UGI",  "edittext",  "nombreugs", 0),
   new ElementoFormato( "GSI",  "spinner",  "gsi", ['0-20','20-40','40-60','60-80','80-100','No Aplica']),
-  new ElementoFormato( "CARACTERÍSTICAS DE LA UGS / UGI",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERÍSTICAS DE LA UGS / UGI",  "titulo",  "titu", 0),
   new ElementoFormato( "Fábrica",  "radiobtn",  "fabrica", ['Cristalina Masiva','Cristalina Foliada','Clástica Cementada','Clástica Consolidada','Roca de falla/ brecha de falla','No Aplica']),
   new ElementoFormato( "Humedad Natural",  "radiobtn",  "humedad", ['Seco','Húmedo','Con flujo','No Aplica']),
   new ElementoFormato( "Tamaño del Grano",  "radiobtn",  "tamanograno", ['Muy Grueso','Grueso ','Medio','Fino','Muy Fino','No Aplica']),
@@ -63,7 +63,7 @@ var listaElementosUGSRDiscont = [
   new ElementoFormato( "Meteorizacion",  "spinner",  "MeteorizacionDiscont", ['1. Fresca','2. Descolorida','3. Descompuesta','4. Desintegrada','No Aplica']),
   new ElementoFormato( "Rake/Pitch",  "edittext",  "RakePitch", 0),
   new ElementoFormato( "Dir. del Rake/Pitch",  "edittext",  "DirRakePitch", 0),
-  new ElementoFormato( "Orientación talud/ladera",  "titulo",  "", 0),
+  new ElementoFormato( "Orientación talud/ladera",  "titulo",  "titu", 0),
   new ElementoFormato( "Az Bz/Bz",  "edittext",  "AzBzBz1", 0),
   new ElementoFormato( "Az Bz/Bz",  "edittext",  "AzBzBz2", 0),
   new ElementoFormato( "Altura",  "edittext",  "AlturaDiscont", 0),
@@ -82,10 +82,10 @@ var listaElementosUGSS = [
   new ElementoFormato( "Número de la Estación",  "edittext",  "noestacion", 0),
   new ElementoFormato( "Clase Afloramiento",  "spinner",  "claseaflor", ['Natural','Corte superficial','Excavación subterránea','Trinchera, Apique']),
   new ElementoFormato( "Secuencia Estratigráfica",  "secuenciaestrati",  "secuenciaestratiopt", ['Suelo Antrópico','Suelo Residual','Suelo Transportado']),
-  new ElementoFormato( "CARACTERIZACIÓN DE LA UGS / UGI",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERIZACIÓN DE LA UGS / UGI",  "titulo",  "titu", 0),
   new ElementoFormato( "Nombre-Código de la UGS / UGI",  "edittext",  "nombreugs", 0),
   new ElementoFormato( "N° litologías asociadas a la UGS /UGI",  "litologias",  "litologiasasociadasopt", 0),
-  new ElementoFormato( "CARACTERÍSTICAS DE LA UGS / UGI",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERÍSTICAS DE LA UGS / UGI",  "titulo",  "titu", 0),
   new ElementoFormato( "Estructura Soporte",  "radiobtn",  "estructurasoporte", ['Clasto-soportado','Intermedia','Matriz soportado','No Aplica']),
   new ElementoFormato( "Porcentaje de Matriz 1",  "edittext",  "porcentajematriz1", 0),
   new ElementoFormato( "Porcentaje de Matriz 2",  "edittext",  "porcentajematriz2", 0),
@@ -95,7 +95,7 @@ var listaElementosUGSS = [
   new ElementoFormato( "Estructuras Relictas",  "radiobtn",  "estructurasrelictas", ['Estructuras heredadas','Fisuras','Grietas','No Aplica']),
   new ElementoFormato( "Color Litología 1",  "edittext",  "color1", 0),
   new ElementoFormato( "Color Litología 2",  "edittext",  "color2", 0),
-  new ElementoFormato( "CARACTERÍSTICAS DE LOS CLASTOS",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERÍSTICAS DE LOS CLASTOS",  "titulo",  "titu", 0),
   new ElementoFormato( "Granulometria de los Clastos",  "multitext",  "granulometria", ['Arena Media (0,425 - 2,0 mm)','Arena gruesa (2,0 - 4,75 mm)','Gravas Finas (4,75 - 19 mm)','Gravas Gruesas (19-75 mm)','Cantos (75 - 300 mm)','Bloques (> 300 mm)']),
   new ElementoFormato( "Forma de los Clastos",  "radiocheck",  "forma", ['Esférica','Equidimensional','Tabular','Plana-Alargada','Irregular']),
   new ElementoFormato( "Redondez de los Clastos",  "radiocheck",  "redondez", ['Bien Redondeada','Redondeada','Subredondeada','Subangular','Angular','Muy Angular']),
@@ -103,14 +103,14 @@ var listaElementosUGSS = [
   new ElementoFormato( "Dirección Imbricación 1",  "edittext",  "dirimbricacion1", 0),
   new ElementoFormato( "Dirección Imbricación 2",  "edittext",  "dirimbricacion2", 0),
   new ElementoFormato( "Meteorizacion de los Clastos",  "radiobtn",  "meteorizacionclastos", ['Ninguna','Débil','Moderada','Alta','Muy alta','No Aplica']),
-  new ElementoFormato( "CARACTERÍSTICAS DE LA MATRIZ",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERÍSTICAS DE LA MATRIZ",  "titulo",  "titu", 0),
   new ElementoFormato( "Granulometría de la Matriz",  "multitext",  "granulometriamatriz", ['Finos (Limos-Arcillas Menores de 0,075 mm)','Arena Fina (0,075 - 0,425 mm)','Arena Media (0,425 - 2,0 mm)','Arena gruesa (2,0 - 4,75 mm)','Gravas Finas (4,75 - 19 mm)','Gravas Gruesas (19-75 mm)','Cantos (75 - 300 mm)','Bloques (> 300 mm)']),
   new ElementoFormato( "Gradacion de la Matriz",  "radiobtn",  "gradacion", ['Normal','Inversa','Normal, solo a la base','Normal,solo al techo','Sin gradación','Compuesto, simétrico','No Aplica']),
   new ElementoFormato( "Seleccion de la Matriz",  "radiobtn",  "seleccion", ['Muy Pobremente Seleccionado','Pobremente Seleccionado','Moderadamente Seleccionado','Bien Seleccionado','Muy Bien Seleccionado','No Aplica']),
   new ElementoFormato( "Plasticidad de la Matriz",  "radiobtn",  "plasticidad", ['No plástico','Ligeramente Plástico','Plástico','Muy Plástico','No Aplica']),
-  new ElementoFormato( "SUELOS FINOS",  "titulo",  "", 0),
+  new ElementoFormato( "SUELOS FINOS",  "titulo",  "titu", 0),
   new ElementoFormato( "RESISTENCIA AL CORTE NO DRENADO kN/m2 (CONSISTENCIA)",  "radiobtn",  "resiscorte", ['Muy Blanda Menor a 20','Blanda 20-40','Media 40-75','Alta 75-150','Muy Alta 150-300','Dura > 300','No Aplica']),
-  new ElementoFormato( "SUELOS GRUESOS",  "titulo",  "", 0),
+  new ElementoFormato( "SUELOS GRUESOS",  "titulo",  "titu", 0),
   // new ElementoFormato( "Forma de la Matriz",  "radiobtn",  "formasuelosgruesos", ['Esférica','Equidimensional','Tabular','Plana-Alargada','Irregular']),
   // new ElementoFormato( "Redondez de la Matriz",  "radiobtn",  "redondezsuelosgruesos", ['Bien Redondeada','Redondeada','Subredondeada','Subangular','Angular','Muy Angular']),
   // new ElementoFormato( "Orientación de la Matriz",  "radiobtn",  "orientacionsuelosgruesos", ['Isotropía','Anisotropía','Imbricado']),
@@ -128,7 +128,7 @@ var listaElementosSGMF =[
   new ElementoFormato( "Número de la Estación",  "edittext",  "noestacion", 0),
   new ElementoFormato( "Tipo de Ambiente (Marque varios si es necesario)","radiocheck","ambiente",["Morfoestructural","Volcánico","Denudacional","Fluvial-Lagunar","Marino-Costero","Glacial-Periglacial","Eólico","Kárstico","Antropogénico"]),
   new ElementoFormato( "UBICACIÓN GEOMORFOLÓGICA","multitext","ubicacion",["Geomorfoestructura","Provincia","Region","Unidad","Subunidad","Elemento"]),
-  new ElementoFormato( "CARACTERIZACIÓN DE LA (S) GEOFORMA (S)",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERIZACIÓN DE LA (S) GEOFORMA (S)",  "titulo",  "titu", 0),
   new ElementoFormato( "Nombre SGMF / EGMF","edittext","nombreSGMF",0),
   new ElementoFormato( "ID - Código SGMF / EGMF","edittext","codigoSGMF",0),
   new ElementoFormato( "Observaciones","edittext","observacionesSGMF",0)
@@ -136,7 +136,7 @@ var listaElementosSGMF =[
 ]
 
 var listaElementosNewSGMF = [
-  new ElementoFormato( "MORFOLITOLOGÍA - MORFOLOGÍA - MORFOMETRÍA - COBERTURA",  "titulo",  "", 0),
+  new ElementoFormato( "MORFOLITOLOGÍA - MORFOLOGÍA - MORFOMETRÍA - COBERTURA",  "titulo",  "titu", 0),
   new ElementoFormato( "ID-Código SGMF-EGMF","edittext","codigonuevaSGMF",0),
   new ElementoFormato( "TIPO DE ROCA, TRO","spinner","tiporoca",["1. Ígnea ácida","2. Ígnea intermedia","3. Ígnea básica","4. Ígnea ultrabásica","5. Volcánica Pirosclástica","6. Sediment. cementada","7. Sediment. consolidada","8. Sedimentaria química","9. Metamórfica masiva","10. Metamórf. bandeada","11. Metamórf. bien foliada",'No Aplica']),
   new ElementoFormato( "GRADO DE METEORIZACIÓN, GM","spinner","gradometeor",["1. Fresca","2. Débil","3. Moderada","4. Alta",'No Aplica']),
@@ -154,13 +154,13 @@ var listaElementosNewSGMF = [
   new ElementoFormato( "COBERTURA OTRO:","edittext","coberturaotro",0),
   new ElementoFormato( "USO DEL TERRENO, U","spinner","uso",[ "1. Ganadería","2. Explot.Forestal","3. Agricultura","4. Explot.Minera","5. Viviendas, vías","6. Otro",'No Aplica']),
   new ElementoFormato( "USO OTRO:","edittext","usootro",0),
-  new ElementoFormato( "CARACTERÍSTICAS DE DRENAJE",  "titulo",  "", 0),
+  new ElementoFormato( "CARACTERÍSTICAS DE DRENAJE",  "titulo",  "titu", 0),
   new ElementoFormato( "DENSIDAD, D","spinner","densidad",[ "1. Baja (Menor a 0,5 Km/Km2)","2. Moderada (0,5 a 1 Km/Km2)","3. Alta (> 1 Km/Km2)",'No Aplica']),
   new ElementoFormato( "FRECUENCIA, FR","spinner","frecuencia",[ "1. Muy Alta (>40 #Frec/Km2)","2. Alta (21 a 40 #Frec/Km2)","3. Media (11 a 20 #Frec/Km2)","4. Baja (5 a 10 #Frec/Km2)","5. Muy baja (Menor a 5 #Frec/Km2)",'No Aplica']),
   new ElementoFormato( "TEXTURA, TEX","spinner","textura",[ "1. Gruesa","2. Mediana","3. Fina","4. Muy Fina"]),
   new ElementoFormato( "PATRÓN, PT","spinner","patron",[ "1. Dendrítico","2. Subdendrítico","3. Paralelo","4. Subparalelo","5. Pinado","6. Rectangular","7. Radial","8. Anular","9. Multicuenca","10. Condicionado","11. Otro",'No Aplica']),
   new ElementoFormato( "PATRÓN OTRO:","edittext","patronotro",0),
-  new ElementoFormato( "MORFODINÁMICA",  "titulo",  "", 0),
+  new ElementoFormato( "MORFODINÁMICA",  "titulo",  "titu", 0),
   new ElementoFormato( "TIPO DE EROSIÓN, TE","spinner","tipoerosion",[ "1. Laminar","2. Surcos","3. Barrancos","4. Cárcavas","5. Socavación","6. Tierras malas","7. Terracetas","8. Eólica","9. Glacial","10. Kárstica","11. Marina",'No Aplica']),
   new ElementoFormato( "ESPACIAMIENTO ENTRE CANALES, EC","spinner","espaciamiento",[ "1. (Menor a 5 m)","2. (5 m a 15 m)","3. (15 m a 50 m)","4. (50 m a 150 m)","5. (150 m a 500 m)","6. (> 500 m)",'No Aplica']),
   new ElementoFormato( "INTENSIDAD DE LA EROSIÓN, IER","spinner","intensidaderosion",[ "1. Suave","2. Moderada","3. Severa",'No Aplica']),
@@ -182,17 +182,17 @@ var listaElementosCAT = [
   new ElementoFormato("FECHA REPORTE (aaaa-mm-dd)","edittextMM","FECHA_REP",0),
   // new ElementoFormato("SIMMA","edittextMM","COD_SIMMA",0),
   new ElementoFormato("Municipio",  "spinnerMM",  "NOM_MUN", ['VALPARAISO']),
-  new ElementoFormato("Vereda",  "spinnerMM",  "VEREDA", ["No Aplica","EL GUAYABO","EL LIBANO","MALLARINO","LA MACHONTA","EL BOSQUE","POTRERILLO","PLAYA RICA","LA MESETA","LA SARDINA","LA HERRADURA","LA FABIANA","LA GRACIELA","BOLAÑOS"]),
+  new ElementoFormato("Vereda",  "spinnerMM",  "VEREDA", ["No Aplica","","EL GUAYABO","EL LIBANO","MALLARINO","LA MACHONTA","EL BOSQUE","POTRERILLO","PLAYA RICA","LA MESETA","LA SARDINA","LA HERRADURA","LA FABIANA","LA GRACIELA","BOLAÑOS"]),
   new ElementoFormato("SITIO","edittext","SITIO",0),
   new ElementoFormato("Latitud","edittext","latitudMM",0),
   new ElementoFormato("Longitud","edittext","longitudMM",0),
   new ElementoFormato("Altura","edittext","alturaMM",0),
   new ElementoFormato("REFERENCIA GEOGRÁFICA","edittextMM","REF_GEOGRF",0),
-  new ElementoFormato("CLASIFICACIÓN DEL MOVIMIENTO",  "titulo",  "", 0),
+  new ElementoFormato("CLASIFICACIÓN DEL MOVIMIENTO",  "titulo",  "titu", 0),
   new ElementoFormato("TIPO MOVIMIENTO",  "radiobtnMM",  "TIPO_MOV", ["No Aplica","Deslizamiento","Reptación","Caída","Flujo","Volcamiento","Propagación Lateral","Deform. Gravit. Profundas"]),
   new ElementoFormato("SUBTIPO PRIMER MOVIMIENTO",  "spinnerMM",  "SUBTIPO_1", ["No Aplica","Caída de Roca","Caída de Suelo","Caída de detritos","Volcamiento flexural de roca","Volcamiento de roca","Volcamiento macizo rocoso","Deslizamiento rotacional","Deslizamiento traslacional","Deslizamiento en cuña","Deslizamiento traslacional en cuña","Deslizamiento traslacional planar","Deslizamiento licuación de arena","Deslizamiento licuación de limo","Deslizamiento licuación detritos","Deslizamiento licuación roca fracturada","Deslizamiento por flujo","Flujo de Detritos","Flujo de Lodo","Flujo de Tierra","Flujo de turba","Avalancha de rocas","Avalancha de detritos","Crecida de detritos","Propagación lateral lenta","Propagación lateral licuación","Reptación de Suelos","Solifluxión","Gelifluxión (en permafrost)"]),
   new ElementoFormato("SUBTIPO SEGUNDO MOVIMIENTO",  "spinnerMM",  "SUBTIPO_2", ["No Aplica","Caída de Roca","Caída de Suelo","Caída de detritos","Volcamiento flexural de roca","Volcamiento de roca","Volcamiento macizo rocoso","Deslizamiento rotacional","Deslizamiento traslacional","Deslizamiento en cuña","Deslizamiento traslacional en cuña","Deslizamiento traslacional planar","Deslizamiento licuación de arena","Deslizamiento licuación de limo","Deslizamiento licuación detritos","Deslizamiento licuación roca fracturada","Deslizamiento por flujo","Flujo de Detritos","Flujo de Lodo","Flujo de Tierra","Flujo de turba","Avalancha de rocas","Avalancha de detritos","Crecida de detritos","Propagación lateral lenta","Propagación lateral licuación","Reptación de Suelos","Solifluxión","Gelifluxión (en permafrost)"]),
-  new ElementoFormato("POBLACION AFECTADA",  "titulo",  "", 0),
+  new ElementoFormato("POBLACION AFECTADA",  "titulo",  "titu", 0),
   new ElementoFormato("Heridos","edittext","HERIDOS",0),
   new ElementoFormato("Vidas","edittext","VIDAS",0),
   new ElementoFormato("Desaparecidos","edittext","DESAPARECIDOS",0),
@@ -201,7 +201,7 @@ var listaElementosCAT = [
   // new ElementoFormato("IMÁGENES SATELITALES","edittext","sensoresremotos",0),
   // new ElementoFormato("FOTOGRAFÍAS AÉREAS","edittextMM","FTE_INFSEC",0),
   new ElementoFormato("NOTAS (Ej: Causas y observaciones generales):","edittext","notas",0),
-  new ElementoFormato("DAÑOS A INFRASTRUCTURA, ACTIVIDADES ECONÓMICAS, DAÑOS AMBIENTALES:","titulo","",0),
+  new ElementoFormato("DAÑOS A INFRASTRUCTURA, ACTIVIDADES ECONÓMICAS, DAÑOS AMBIENTALES:","titulo","titu",0),
   new ElementoFormato("TIPO DE DAÑO:","textview","","Infraestructura: edificios, carreteras, inst. educativa, puentes, servicios publicos, vía ferrea, torre conducción eléctrica, obras lineales, planta eléctrica, torre de energía, capa asfaltica, galpones, tanque almacenamiento, espolones, distrito riego, puentes peatonales, puentes veredales, acueducto. Económicos: agricultura, ganadería, cultivos, semovientes, transporte pasajeros y carga. Ambientales: parques, bosques, planta tratamiento de agua.")
 
 ];
@@ -227,23 +227,23 @@ var listaElementosINV = [
   new ElementoFormato("FECHA REPORTE (aaaa-mm-dd)","edittextMM","FECHA_REP",0),
   // new ElementoFormato("SIMMA","edittextMM","COD_SIMMA",0),
   new ElementoFormato("Municipio",  "spinnerMM",  "NOM_MUN", ['VALPARAISO']),
-  new ElementoFormato("Vereda",  "spinnerMM",  "VEREDA", ["No Aplica","EL GUAYABO","EL LIBANO","MALLARINO","LA MACHONTA","EL BOSQUE","POTRERILLO","PLAYA RICA","LA MESETA","LA SARDINA","LA HERRADURA","LA FABIANA","LA GRACIELA","BOLAÑOS"]),
+  new ElementoFormato("Vereda",  "spinnerMM",  "VEREDA", ["No Aplica","","EL GUAYABO","EL LIBANO","MALLARINO","LA MACHONTA","EL BOSQUE","POTRERILLO","PLAYA RICA","LA MESETA","LA SARDINA","LA HERRADURA","LA FABIANA","LA GRACIELA","BOLAÑOS"]),
   new ElementoFormato("Sitio","edittext","SITIO",0),
   new ElementoFormato("REFERENCIA GEOGRÁFICA","edittextMM","REF_GEOGRF",0),
   // new ElementoFormato("DOCUMENTACIÓN",  "titulo",  "", 0),
   // new ElementoFormato("PLANCHAS","edittext","planchas",0),
   // new ElementoFormato("SENSORES REMOTOS","edittext","sensoresremotos",0),
   // new ElementoFormato("FOTOGRAFÍAS AÉREAS","edittextMM","FTE_INFSEC",0),
-  new ElementoFormato("ACTIVIDAD DEL MOVIMIENTO",  "titulo",  "", 0),
+  new ElementoFormato("ACTIVIDAD DEL MOVIMIENTO",  "titulo",  "titu", 0),
   new ElementoFormato("EDAD","spinner","edadmm",["No Aplica","Menor a 1 año","1-5 años","6-10 años","11-15 años","16-20 años","21-30 años","31-40 años","41-60 años","61-80 años","> 80 años"]),
   new ElementoFormato("ESTADO","spinnerMM","ESTADO_ACT",["No Aplica","Activo","Reactivado","Suspendido","Latente","Abandonado","Estabilizado","Relicto"]),
   new ElementoFormato("ESTILO","spinnerMM","ESTILO",["No Aplica","Complejo","Compuesto","Múltiple","Sucesivo","Único"]),
   new ElementoFormato("DISTRIBUCIÓN","spinnerMM","DISTRIBUC",["Ninguno","Retrogresivo","Avanzado","Ensanchado","Confinado","Creciente","Decreciente","Movil"]),
-  new ElementoFormato("LITOLOGIA Y ESTRUCTURA",  "titulo",  "", 0),
+  new ElementoFormato("LITOLOGIA Y ESTRUCTURA",  "titulo",  "titu", 0),
   new ElementoFormato("DESCRIPCIÓN (Incuir minimo origen de la roca,(I,M ó S) Edad, Fm, Litologia y estratigrafia, suelos)","edittextMM","LITOLOGIA",0),
-  new ElementoFormato("ESTRUCTURAS",  "titulo",  "", 0),
+  new ElementoFormato("ESTRUCTURAS",  "titulo",  "titu", 0),
   new ElementoFormato("ESTRUCTURA","estructuras","estructura",["Estratificación","Foliación","Diaclasas","Falla","Discordancia","Esquistosidad"]),
-  new ElementoFormato("CLASIFICACIÓN DEL MOVIMIENTO",  "titulo",  "", 0),
+  new ElementoFormato("CLASIFICACIÓN DEL MOVIMIENTO",  "titulo",  "titu", 0),
   new ElementoFormato("TIPO MOVIMIENTO",  "radiobtnMM",  "TIPO_MOV", ["No Aplica","Deslizamiento","Reptación","Caída","Flujo","Volcamiento","Propagación Lateral","Deform. Gravit. Profundas"]),
   new ElementoFormato("SUBTIPO PRIMER MOVIMIENTO",  "spinnerMM",  "SUBTIPO_1", ["No Aplica","Caída de Roca","Caída de Suelo","Caída de detritos","Volcamiento flexural de roca","Volcamiento de roca","Volcamiento macizo rocoso","Deslizamiento rotacional","Deslizamiento traslacional","Deslizamiento en cuña","Deslizamiento traslacional en cuña","Deslizamiento traslacional planar","Deslizamiento licuación de arena","Deslizamiento licuación de limo","Deslizamiento licuación detritos","Deslizamiento licuación roca fracturada","Deslizamiento por flujo","Flujo de Detritos","Flujo de Lodo","Flujo de Tierra","Flujo de turba","Avalancha de rocas","Avalancha de detritos","Crecida de detritos","Propagación lateral lenta","Propagación lateral licuación","Reptación de Suelos","Solifluxión","Gelifluxión (en permafrost)"]),
   new ElementoFormato("SUBTIPO SEGUNDO MOVIMIENTO",  "spinnerMM",  "SUBTIPO_2", ["No Aplica","Caída de Roca","Caída de Suelo","Caída de detritos","Volcamiento flexural de roca","Volcamiento de roca","Volcamiento macizo rocoso","Deslizamiento rotacional","Deslizamiento traslacional","Deslizamiento en cuña","Deslizamiento traslacional en cuña","Deslizamiento traslacional planar","Deslizamiento licuación de arena","Deslizamiento licuación de limo","Deslizamiento licuación detritos","Deslizamiento licuación roca fracturada","Deslizamiento por flujo","Flujo de Detritos","Flujo de Lodo","Flujo de Tierra","Flujo de turba","Avalancha de rocas","Avalancha de detritos","Crecida de detritos","Propagación lateral lenta","Propagación lateral licuación","Reptación de Suelos","Solifluxión","Gelifluxión (en permafrost)"]),
@@ -256,26 +256,26 @@ var listaElementosINV = [
   // new ElementoFormato("VELOCIDAD MÁXIMA","edittext","velocidadmax",0),
   // new ElementoFormato("VELOCIDAD MÍNIMA","edittext","velocidadmin",0),
   new ElementoFormato("SISTEMA DE CLASIFICACIÓN",  "spinner",  "sisclasificacion", ["Cruden y Varnes, 1996", "Hutchinson, 1988","Varnes, 1978","Hungr et al., 2001"]),
-  new ElementoFormato("MORFOMETRÍA",  "titulo",  "", 0),
+  new ElementoFormato("MORFOMETRÍA",  "titulo",  "titu", 0),
   new ElementoFormato("GENERAL",  "multitext",  "morfogeneral", [ "Diferencia altura corona a punta(m)","Longitud horizontal corona a punta(m)","Pendiente ladera en Post-falla(grados)","Pendiente ladera en Pre-falla(grados)","Dirección del movimiento(grados)","Azimut del talud(grados)"]),
   new ElementoFormato("DIMENSIONES DEL TERRENO",  "multitext",  "morfodimensiones", [ "Ancho masa desplazada Wd(m)","Ancho superficie de ruptura Wr(m)","Longitud masa desplazada Ld(m)","Longitud superficie de ruptura Lr(m)","Espesor masa desplazada Dd (m)","Profundidad superficie de ruptura Dr(m)","Longitud total L (m)","Longitud de la línea central Lc (m)","Volumen inicial (m3)","Volumen desplazado (m3)","Área inicial (m2)","Área total afectada (m2)","Distancia de viaje (m)"]),
-  new ElementoFormato("DEFORMACIÓN TERRENO",  "titulo",  "", 0),
+  new ElementoFormato("DEFORMACIÓN TERRENO",  "titulo",  "titu", 0),
   new ElementoFormato("MODO",  "spinner",  "morfomodo", ['No Aplica',"Ondulación","Escalonamiento"]),
   new ElementoFormato("SEVERIDAD",  "spinner",  "morfoseveridad", [ 'No Aplica',"Leve","Media","Severa"]),
   new ElementoFormato("GEOFORMA",  "edittextMM",  "AN_GMF", 0),
-  new ElementoFormato("CAUSAS DEL MOVIMIENTO",  "titulo",  "", 0),
+  new ElementoFormato("CAUSAS DEL MOVIMIENTO",  "titulo",  "titu", 0),
   new ElementoFormato("INHERENTES",  "radiocheck",  "causasinherentes", [ "Material plástico débil","Material sensible","Material colapsible","Material meteor. fisicamente","Material meteor. quimicamente","Material fallado por corte","Material fisurado y agrietado","Orientación desfav. de discontinuidades","Contraste de permeabilidad de materiales","Contraste de rígidez de materiales","Meteoriz. por descongelamiento/deshielo","Meteoriz. por expansión/contracción"]),
   new ElementoFormato("CONTRIBUYENTES - DETONANTES",  "radiocheckMM",  "causascontrideto", ["Movimiento tectónico","Sismo","Erupción volcánica","Lluvias (mm)","Viento","Deshielo","Avance/Retroceso de glaciales","Rompimiento de lagos en crateres","Rompimiento de presas","Desembalse rápido de presas","Erosión pata del talud por glaciares","Socavación pata del talud por corriente agua","Socavación pata del talud por oleaje","Socavación de margenes de ríos","Erosión Pluvial","Carga en la corona del talud","Erosión subterranea (disolución, tubificación)","Irrigación","Mantenimiento deficiente sistema de drenaje","Escapes de agua de tuberias","Deforestación o ausencia de vegetación","Mineria","Disposición deficiente de estériles/escombros","Vibración artificial (trafico, explosiones, hincado pilotes)","Erosión Fluvial"]),
   new ElementoFormato("SISMO",  "multitext",  "sismoMM", [ "Magnitud","Escala (ML, Ms, mb, Mw)","Distancia al epicentro (Km)","Profundiad (Km)"]),
   new ElementoFormato("LLUVIAS",  "multitext",  "lluviasMM", [ "24h","48h","72h","Mes"]),
-  new ElementoFormato("TIPO DE EROSIÓN",  "titulo",  "", 0),
+  new ElementoFormato("TIPO DE EROSIÓN",  "titulo",  "titu", 0),
   new ElementoFormato("SUPERFICIAL",  "radiocheck",  "erosionsuperficial", [ "Tierras malas","Carcavas","Surcos","Hondonadas","Laminar"]),
   new ElementoFormato("SUBSUPERFICIAL",  "radiocheck",  "erosionsubsuperficial", [ "Cavernas","Tubificación"]),
   new ElementoFormato("EDAD",  "spinner",  "erosionedad", ['No Aplica', "Antigua","Reciente"]),
   new ElementoFormato("ESTADO",  "spinner",  "erosionestado", ['No Aplica', "Baja","Moderada","Severa"]),
   new ElementoFormato("FLUVIAL",  "spinner",  "erosionfluvial", [ 'No Aplica',"Socav. fondo","Socav. lateral"]),
   new ElementoFormato("EOLICA",  "spinner",  "erosioneolica", ['No Aplica', "Si","No"]),
-  new ElementoFormato("COBERTURA Y USO DEL SUELO",  "titulo",  "", 0),
+  new ElementoFormato("COBERTURA Y USO DEL SUELO",  "titulo",  "titu", 0),
   new ElementoFormato("COBERTURA DEL SUELO",  "multitext",  "cobertura", [ "Veg. Herbácea (%)","Bosque/Selva (%)","Matorrales (%)","Cuerpo de agua (%)","Cultivos (%)","Construcciones (%)","Pastos (%)","Sin cobertura (%)"]),
   new ElementoFormato("USO DEL SUELO",  "multitext",  "usosuelo", [ "Ganaderia (%)","Agrícola (%)","Recreación (%)","Vivienda (%)","Mineria (%)","Área protegida (%)","Vias (%)","Zona arqueológica (%)","Zona Industrial (%)","Sin uso (%)"]),
   // new ElementoFormato("REFERENCIAS",  "titulo",  "", 0),
@@ -291,7 +291,7 @@ var listaElementosINV = [
   // new ElementoFormato("TIPO (Costa & Schuster, 1988)",  "spinner",  "represamientotipo", [ "I","II","III","IV","V","VI",'No Aplica']),
   // new ElementoFormato("CONDICIONES DE LA PRESA",  "radiocheck",  "represamientocondiciones", [ "Obstrucción parcial","Erosión de la pata","Estabilización artificial","Ligeramente socavada","Moderadamente socavda","Fuertemente socavda","Parcialmente fallada","Fallada"]),
   // new ElementoFormato("EFECTOS",  "radiocheck",  "represamientoefectos", ["Tsunami (alt. ola)","Empalizada","Sedimentación","Sismo","Inundacion"]),
-  new ElementoFormato("POBLACION AFECTADA",  "titulo",  "", 0),
+  new ElementoFormato("POBLACION AFECTADA",  "titulo",  "titu", 0),
   new ElementoFormato("HERIDOS","edittext","HERIDOS",0),
   new ElementoFormato("VIDAS","edittext","VIDAS",0),
   new ElementoFormato("DESAPARECIDOS","edittext","DESAPARECIDOS",0),
@@ -299,7 +299,7 @@ var listaElementosINV = [
   new ElementoFormato("FAMILIAS","edittext","FAMILIAS",0),
   new ElementoFormato("NOTAS","edittext","notas",0),
   new ElementoFormato("APRECIACIÓN DEL RIESGO","edittext","apreciacionriesgo",0),
-  new ElementoFormato("DAÑOS A INFRASTRUCTURA, ACTIVIDADES ECONÓMICAS, DAÑOS AMBIENTALES:","titulo","",0),
+  new ElementoFormato("DAÑOS A INFRASTRUCTURA, ACTIVIDADES ECONÓMICAS, DAÑOS AMBIENTALES:","titulo","titu",0),
   new ElementoFormato("TIPO DE DAÑO:","textview","","Infraestructura: edificios, carreteras, inst. educativa, puentes, servicios publicos, vía ferrea, torre conducción eléctrica, obras lineales, planta eléctrica, torre de energía, capa asfaltica, galpones, tanque almacenamiento, espolones, distrito riego, puentes peatonales, puentes veredales, acueducto. Económicos: agricultura, ganadería, cultivos, semovientes, transporte pasajeros y carga. Ambientales: parques, bosques, planta tratamiento de agua.")
 ]
 
@@ -311,7 +311,7 @@ var listaElementosInvFotosAnexas = [
 ]
 
 var listaElementosUSOS = [
-  new ElementoFormato("PLANILLA DE VERIFICACIÓN DE COBERTURAS Y USO DEL SUELO EN CAMPO","titulo","", 0),
+  new ElementoFormato("PLANILLA DE VERIFICACIÓN DE COBERTURAS Y USO DEL SUELO EN CAMPO","titulo","titu", 0),
   new ElementoFormato("Número de Planilla","edittext","NOPLANILLA", 0),
   new ElementoFormato("Nombre del Intérprete","edittext","PROPIETARIO", 0),
   new ElementoFormato("Periodo de Interpretación (Mes/Año)","edittext","PERIODO", 0),
@@ -6175,6 +6175,12 @@ function QueryTipoForm(id) {
         formulaJS.push("INVENTARIO");
         QueryOperadores("(");
         break;
+      case "viv":
+        camposQuery = listaElementosVIVIENDA;
+        formulaMostrar = ' <b style = "color: '+color[0]+'" >VIVIENDA</b> ';
+        formulaJS.push("VIVIENDA");
+        QueryOperadores("(");
+        break;
       default:
         camposQuery = null
         break;
@@ -6215,6 +6221,13 @@ function QueryTipoForm(id) {
         formulaMostrar += ' <b style = "color: '+colorop+'" >||</b> ';
         formulaMostrar += ' <b style = "color: '+color[0]+'" >INVENTARIO</b> ';
         formulaJS.push("INVENTARIO");
+        QueryOperadores("(");
+        break;
+      case "viv":
+        camposQuery = listaElementosVIVIENDA;
+        formulaMostrar += ' <b style = "color: '+colorop+'" >||</b> ';
+        formulaMostrar += ' <b style = "color: '+color[0]+'" >VIVIENDA</b> ';
+        formulaJS.push("VIVIENDA");
         QueryOperadores("(");
         break;
       default:
@@ -6434,6 +6447,9 @@ function QueryCampos(id) {
     case "inv":
       camposQuery = listaElementosINV;
       break;
+    case "viv":
+      camposQuery = listaElementosVIVIENDA;
+      break;
     default:
       camposQuery = []
       break;
@@ -6557,7 +6573,7 @@ function QueryValor(id) {
     formulaMostrar += valorBuscar == "true" ? "Seleccionado" : "No Seleccionado";
   }
   else{
-    formulaMostrar += valorBuscar;
+    formulaMostrar += '"'+ valorBuscar + '"';
   }
   formulaJS.push(valorBuscar);
   console.log(formulaJS);
@@ -6704,6 +6720,9 @@ function QueryEjecutar(todasEstaciones, todoId, apuntadorTabla) {
       tags.push(listaElementosINV[i].tag);
     }
   }
+  for (let i = 0; i < listaElementosVIVIENDA.length; i++) {
+      tags.push(listaElementosVIVIENDA[i].tag);
+  }
   var estQuery = [];
   var tipoForm = "";
   var tipoFormInt1 = "";
@@ -6713,10 +6732,10 @@ function QueryEjecutar(todasEstaciones, todoId, apuntadorTabla) {
   var busquedaTipo = false;
 
   for (let no = 0; no < formulaJS.length; no++) {
-    if(formulaJS[no] == "UGSR" || formulaJS[no] == "UGSS" || formulaJS[no] == "SGMF" || formulaJS[no] == "CATALOGO" || formulaJS[no] == "INVENTARIO"){
+    if(formulaJS[no] == "UGSR" || formulaJS[no] == "UGSS" || formulaJS[no] == "SGMF" || formulaJS[no] == "CATALOGO" || formulaJS[no] == "INVENTARIO" || formulaJS[no] == "VIVIENDA"){
       console.log("no: "+no);
       for (let n = no; n < formulaJS.length; n++) {
-        if(formulaJS[n] == "UGSR" || formulaJS[n] == "UGSS" || formulaJS[n] == "SGMF" || formulaJS[n] == "CATALOGO" || formulaJS[n] == "INVENTARIO"){
+        if(formulaJS[n] == "UGSR" || formulaJS[n] == "UGSS" || formulaJS[n] == "SGMF" || formulaJS[n] == "CATALOGO" || formulaJS[n] == "INVENTARIO" || formulaJS[n] == "VIVIENDA"){
           if (alcanceTipo) {
             break;
           }
@@ -6741,6 +6760,9 @@ function QueryEjecutar(todasEstaciones, todoId, apuntadorTabla) {
             case "INVENTARIO":
               tipoForm = "INVENTARIO";
               break;
+            case "VIVIENDA":
+              tipoForm = "VIVIENDA";
+              break;
             default:
               break;
           }
@@ -6755,7 +6777,12 @@ function QueryEjecutar(todasEstaciones, todoId, apuntadorTabla) {
             }
           } 
           else if (tags.includes(formulaJS[n])){
-            formulaEval += ' formato["'+formulaJS[n]+'"] ';
+            if (formulaJS[n] === "") {
+              formulaEval += ' "'+formulaJS[n]+'" ';
+            }
+            else{
+              formulaEval += ' formato["'+formulaJS[n]+'"] ';
+            }
           }
           else if (tagsSec.includes(formulaJS[n])){
             formulaEval += ' subformato["'+formulaJS[n]+'"] ';
@@ -7026,6 +7053,9 @@ function QueryEjecutarVisor(base_clase1) {
       tags.push(listaElementosINV[i].tag);
     }
   }
+  for (let i = 0; i < listaElementosVIVIENDA.length; i++) {
+    tags.push(listaElementosVIVIENDA[i].tag);
+  }
   var estQuery = [];
   var tipoForm = "";
   var tipoFormInt1 = "";
@@ -7035,10 +7065,10 @@ function QueryEjecutarVisor(base_clase1) {
   var busquedaTipo = false;
 
   for (let no = 0; no < formulaJS.length; no++) {
-    if(formulaJS[no] == "UGSR" || formulaJS[no] == "UGSS" || formulaJS[no] == "SGMF" || formulaJS[no] == "CATALOGO" || formulaJS[no] == "INVENTARIO"){
+    if(formulaJS[no] == "UGSR" || formulaJS[no] == "UGSS" || formulaJS[no] == "SGMF" || formulaJS[no] == "CATALOGO" || formulaJS[no] == "INVENTARIO" || formulaJS[no] == "VIVIENDA"){
       console.log("no: "+no);
       for (let n = no; n < formulaJS.length; n++) {
-        if(formulaJS[n] == "UGSR" || formulaJS[n] == "UGSS" || formulaJS[n] == "SGMF" || formulaJS[n] == "CATALOGO" || formulaJS[n] == "INVENTARIO"){
+        if(formulaJS[n] == "UGSR" || formulaJS[n] == "UGSS" || formulaJS[n] == "SGMF" || formulaJS[n] == "CATALOGO" || formulaJS[n] == "INVENTARIO" || formulaJS[n] == "VIVIENDA"){
           if (alcanceTipo) {
             break;
           }
@@ -7063,6 +7093,9 @@ function QueryEjecutarVisor(base_clase1) {
             case "INVENTARIO":
               tipoForm = "INVENTARIO";
               break;
+            case "VIVIENDA":
+              tipoForm = "VIVIENDA";
+              break;
             default:
               break;
           }
@@ -7077,7 +7110,12 @@ function QueryEjecutarVisor(base_clase1) {
             }
           } 
           else if (tags.includes(formulaJS[n])){
-            formulaEval += ' formato["'+formulaJS[n]+'"] ';
+            if (formulaJS[n] === "") {
+              formulaEval += ' "'+formulaJS[n]+'" ';
+            }
+            else{
+              formulaEval += ' formato["'+formulaJS[n]+'"] ';
+            }
           }
           else if (tagsSec.includes(formulaJS[n])){
             formulaEval += ' subformato["'+formulaJS[n]+'"] ';
@@ -7162,6 +7200,17 @@ function QueryEjecutarVisor(base_clase1) {
   console.log(estQuery);
   return estQuery;
 }
+
+
+function QueryVeredas() {
+  formulaJS = ["UGSR","(","vereda","==","",")","UGSS","(","vereda","==","",")","SGMF","(","vereda","==","",")","CATALOGO","(","VEREDA","==","",")","INVENTARIO","(","VEREDA","==","",")","VIVIENDA","(","veredaValpa","==","",")"];
+  formulaMostrar = 'UGSR ( Vereda == "" ) || UGSS ( Vereda == "" ) || SGMF ( Vereda == "" ) || CATALOGO ( Vereda == "" ) || INVENTARIO ( Vereda == "" ) || VIVIENDA ( Vereda o Sector == "" )';
+  $("#formula-form-query").empty();
+  $("#formula-form-query").append('<p>'+ formulaMostrar +'</p>');
+  $("#valores-form-query").empty();
+  $("#campos-form-query").empty();
+}
+
 
 function QueryBorrar() {
   formulaMostrar = "";
